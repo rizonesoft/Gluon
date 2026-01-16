@@ -16,8 +16,8 @@
         "dev": "npm run watch"
     },
     "devDependencies": {
-        "tailwindcss": "^4.0.0",
-        "@tailwindcss/cli": "^4.0.0"
+        "tailwindcss": "4.1.18",
+        "@tailwindcss/cli": "4.1.18"
     },
     "keywords": [
         "wordpress",
