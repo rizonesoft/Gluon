@@ -53,6 +53,22 @@
 /* Modern Abstract Hero - Light Mode Optimized */
 .gluon-hero-abstract {
     background-color: var(--color-zinc-50, #fafafa);
+    position: relative;
+    /* Create stacking context so content is above ::before */
+    z-index: 0;
+    overflow: hidden; /* Ensure pseudo doesn't spill out */
+}
+
+/* Apply the pattern/mask to the pseudo-element only */
+.gluon-hero-abstract::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; /* Place behind content */
+    
     background-image: 
         /* Subtle Grid */
         linear-gradient(var(--color-gluon-border) 1px, transparent 1px),
@@ -60,23 +76,30 @@
         /* Soft Accent Glows */
         radial-gradient(circle at 100% 0%, var(--color-gluon-accent-100) 0%, transparent 25%),
         radial-gradient(circle at 0% 100%, var(--color-gluon-secondary-100) 0%, transparent 25%);
+        
     background-size: 
         40px 40px,
         40px 40px,
         100% 100%,
         100% 100%;
+        
     background-position: 
         center top,
         center top,
         0 0,
         0 0;
+        
     /* Fade the grid out towards the center/content */
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 100%);
     -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+    pointer-events: none;
 }
 
 .gluon-dark .gluon-hero-abstract {
     background-color: var(--color-zinc-900, #18181b);
+}
+
+.gluon-dark .gluon-hero-abstract::before {
     background-image: 
         linear-gradient(var(--color-gluon-border-dark) 1px, transparent 1px),
         linear-gradient(90deg, var(--color-gluon-border-dark) 1px, transparent 1px),
