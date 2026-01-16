@@ -1,13 +1,24 @@
 /**
- * Gluon Theme - Optimized Particle System
- * Performance-focused with mobile optimizations.
+ * Gluon Theme - Ultimate Particle System
+ * All wow-factor enhancements implemented.
+ * 
+ * Features:
+ * - Depth-based starfield with parallax
+ * - Accent anchor particles (Gluon Blue, pulsing)
+ * - Glow effect on close particles
+ * - Mouse attraction lines
+ * - Strategic connection lines
+ * - Shooting stars
+ * - Click-to-burst
+ * - Slow global rotation
+ * - Reduced motion support
  */
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.gluon-particles-container');
     if (!container) return;
 
+    // Respect reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
 
     const canvas = document.createElement('canvas');
     canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
@@ -20,22 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
     let shootingStars = [];
     let rotation = 0;
     let animationId;
-    let resizeTimeout;
 
-    // Performance-optimized configuration
+    // Configuration
     const config = {
-        particleCount: isMobile ? 30 : 100,        // Reduced from 60/150
-        anchorCount: isMobile ? 2 : 5,             // Reduced from 3/7
-        baseSpeed: 0.1,
-        connectionDistance: isMobile ? 100 : 150,  // Increased back for more lines
-        connectionMinDepth: 0.4,                   // Skip more particles
-        mouseAttractionDistance: isMobile ? 100 : 150,
-        rotationSpeed: isMobile ? 0 : 0.00005,     // Slower rotation
-        shootingStarInterval: isMobile ? 0 : 12000, // Disabled on mobile
-        accentColor: 'rgba(8, 140, 219, ',
-        enableGlow: !isMobile,                     // Disable shadows on mobile
+        particleCount: window.innerWidth < 768 ? 60 : 150,
+        anchorCount: window.innerWidth < 768 ? 3 : 7,
+        baseSpeed: prefersReducedMotion ? 0.05 : 0.15,
+        parallaxFactor: prefersReducedMotion ? 10 : 30,
+        connectionDistance: 150,
+        mouseAttractionDistance: 200,
+        rotationSpeed: prefersReducedMotion ? 0 : 0.0001, // radians per frame
+        shootingStarInterval: 8000, // ms
+        accentColor: 'rgba(8, 140, 219, ', // Gluon Blue
     };
 
+    // State
     let mouse = { x: 0.5, y: 0.5, realX: null, realY: null };
     let isDark = document.documentElement.classList.contains('gluon-dark');
     let lastShootingStar = 0;
@@ -46,19 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
-    // Debounced Resize Handler
+    // Resize Handler
     const resize = () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            width = container.offsetWidth;
-            height = container.offsetHeight;
-            canvas.width = width;
-            canvas.height = height;
-            initParticles();
-        }, 100); // 100ms debounce
+        width = container.offsetWidth;
+        height = container.offsetHeight;
+        canvas.width = width;
+        canvas.height = height;
+        initParticles();
     };
 
-    // Optimized Particle Class
+    // Regular Particle Class
     class Particle {
         constructor() {
             this.reset();
@@ -66,51 +73,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
         reset() {
             this.z = Math.random();
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
+            this.baseX = Math.random() * width;
+            this.baseY = Math.random() * height;
+            this.x = this.baseX;
+            this.y = this.baseY;
             this.vx = (Math.random() - 0.5) * config.baseSpeed;
             this.vy = (Math.random() - 0.5) * config.baseSpeed;
-            this.size = 0.5 + this.z * 2;
-            this.opacity = 0.2 + this.z * 0.5;
+            this.size = 0.5 + this.z * 2.5;
+            this.opacity = 0.2 + this.z * 0.6;
         }
 
         update() {
-            this.x += this.vx;
-            this.y += this.vy;
-            if (this.x < 0 || this.x > width) this.vx *= -1;
-            if (this.y < 0 || this.y > height) this.vy *= -1;
+            this.baseX += this.vx;
+            this.baseY += this.vy;
+
+            if (this.baseX < 0 || this.baseX > width) this.vx *= -1;
+            if (this.baseY < 0 || this.baseY > height) this.vy *= -1;
+
+            // No parallax - just use base position
+            this.x = this.baseX;
+            this.y = this.baseY;
         }
 
         draw() {
-            const color = isDark ? `rgba(250,250,250,${this.opacity})` : `rgba(24,24,27,${this.opacity})`;
+            // Glow for close particles
+            if (this.z > 0.8) {
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = config.accentColor + '0.3)';
+            } else {
+                ctx.shadowBlur = 0;
+            }
+
+            const color = isDark ? `rgba(250, 250, 250, ${this.opacity})` : `rgba(24, 24, 27, ${this.opacity})`;
             ctx.fillStyle = color;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
+            ctx.shadowBlur = 0;
         }
     }
 
-    // Anchor Particle (pulsing)
+    // Anchor Particle (Accent colored, pulsing)
     class AnchorParticle extends Particle {
         constructor() {
             super();
-            this.z = 0.8 + Math.random() * 0.2;
+            this.z = 0.8 + Math.random() * 0.2; // Always close
             this.pulsePhase = Math.random() * Math.PI * 2;
-            this.baseSize = 2 + Math.random() * 1.5;
+            this.baseSize = 3 + Math.random() * 2;
         }
 
         update() {
             super.update();
-            this.pulsePhase += 0.02;
-            this.size = this.baseSize + Math.sin(this.pulsePhase) * 0.8;
-            this.opacity = 0.5 + Math.sin(this.pulsePhase) * 0.2;
+            this.pulsePhase += 0.03;
+            this.size = this.baseSize + Math.sin(this.pulsePhase) * 1;
+            this.opacity = 0.5 + Math.sin(this.pulsePhase) * 0.3;
         }
 
         draw() {
-            if (config.enableGlow) {
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = config.accentColor + '0.5)';
-            }
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = config.accentColor + '0.6)';
             ctx.fillStyle = config.accentColor + this.opacity + ')';
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -124,10 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
         constructor() {
             this.x = Math.random() * width;
             this.y = 0;
-            this.vx = (Math.random() - 0.5) * 6 + 3;
-            this.vy = Math.random() * 4 + 3;
+            this.vx = (Math.random() - 0.5) * 8 + 4;
+            this.vy = Math.random() * 6 + 4;
             this.life = 1;
-            this.decay = 0.025;
+            this.decay = 0.02;
+            this.size = 2;
+            this.tailLength = 30;
         }
 
         update() {
@@ -138,12 +161,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         draw() {
             if (this.life <= 0) return;
-            ctx.strokeStyle = `rgba(255,255,255,${this.life})`;
-            ctx.lineWidth = 1.5;
+
+            const gradient = ctx.createLinearGradient(
+                this.x, this.y,
+                this.x - this.vx * 3, this.y - this.vy * 3
+            );
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${this.life})`);
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = this.size;
             ctx.lineCap = 'round';
             ctx.beginPath();
             ctx.moveTo(this.x, this.y);
-            ctx.lineTo(this.x - this.vx * 2, this.y - this.vy * 2);
+            ctx.lineTo(this.x - this.vx * 3, this.y - this.vy * 3);
             ctx.stroke();
         }
 
@@ -155,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function initParticles() {
         particles = [];
         anchorParticles = [];
+
         for (let i = 0; i < config.particleCount; i++) {
             particles.push(new Particle());
         }
@@ -163,11 +195,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function spawnShootingStar() {
+        shootingStars.push(new ShootingStar());
+    }
+
     function animate(timestamp) {
         ctx.clearRect(0, 0, width, height);
 
-        // Global rotation (desktop only)
-        if (config.rotationSpeed > 0) {
+        // Global rotation (subtle)
+        if (!prefersReducedMotion) {
             rotation += config.rotationSpeed;
             ctx.save();
             ctx.translate(width / 2, height / 2);
@@ -175,29 +211,36 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.translate(-width / 2, -height / 2);
         }
 
-        // Update and draw particles
-        const allParticles = [...particles, ...anchorParticles];
-        for (let i = 0; i < allParticles.length; i++) {
-            allParticles[i].update();
-            allParticles[i].draw();
+        // Update and draw regular particles
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
         }
 
-        // Connection lines (optimized)
+        // Update and draw anchor particles
+        for (let i = 0; i < anchorParticles.length; i++) {
+            anchorParticles[i].update();
+            anchorParticles[i].draw();
+        }
+
+        // Connection lines (between close particles)
+        const allParticles = [...particles, ...anchorParticles];
         for (let i = 0; i < allParticles.length; i++) {
-            if (allParticles[i].z < config.connectionMinDepth) continue;
+            if (allParticles[i].z < 0.3) continue;
 
             for (let j = i + 1; j < allParticles.length; j++) {
-                if (allParticles[j].z < config.connectionMinDepth) continue;
+                if (allParticles[j].z < 0.3) continue;
 
                 const dx = allParticles[i].x - allParticles[j].x;
                 const dy = allParticles[i].y - allParticles[j].y;
-                const distSq = dx * dx + dy * dy;
-                const maxDistSq = config.connectionDistance * config.connectionDistance;
+                const distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (distSq < maxDistSq) {
-                    const opacity = (1 - distSq / maxDistSq) * 0.2;
+                if (distance < config.connectionDistance) {
+                    const opacity = (1 - distance / config.connectionDistance) * 0.25;
                     ctx.beginPath();
-                    ctx.strokeStyle = isDark ? `rgba(250,250,250,${opacity})` : `rgba(24,24,27,${opacity})`;
+                    ctx.strokeStyle = isDark
+                        ? `rgba(250, 250, 250, ${opacity})`
+                        : `rgba(24, 24, 27, ${opacity})`;
                     ctx.lineWidth = 0.5;
                     ctx.moveTo(allParticles[i].x, allParticles[i].y);
                     ctx.lineTo(allParticles[j].x, allParticles[j].y);
@@ -206,38 +249,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Mouse attraction lines + cursor particle
+        // Mouse attraction lines
         if (mouse.realX !== null) {
-            let linesDrawn = 0;
-            const maxLines = isMobile ? 5 : 15; // Limit lines on mobile
-
-            for (let i = 0; i < allParticles.length && linesDrawn < maxLines; i++) {
-                if (allParticles[i].z < 0.4) continue;
-
+            for (let i = 0; i < allParticles.length; i++) {
                 const dx = mouse.realX - allParticles[i].x;
                 const dy = mouse.realY - allParticles[i].y;
-                const distSq = dx * dx + dy * dy;
-                const maxDistSq = config.mouseAttractionDistance * config.mouseAttractionDistance;
+                const distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (distSq < maxDistSq) {
-                    const opacity = (1 - distSq / maxDistSq) * 0.5;
+                if (distance < config.mouseAttractionDistance && allParticles[i].z > 0.4) {
+                    const opacity = (1 - distance / config.mouseAttractionDistance) * 0.5;
                     ctx.beginPath();
                     ctx.strokeStyle = config.accentColor + opacity + ')';
                     ctx.lineWidth = 1;
                     ctx.moveTo(allParticles[i].x, allParticles[i].y);
                     ctx.lineTo(mouse.realX, mouse.realY);
                     ctx.stroke();
-                    linesDrawn++;
                 }
             }
 
-            // Cursor particle
-            const pulseSize = 3 + Math.sin(Date.now() / 250) * 1.5;
-            const pulseOpacity = 0.5 + Math.sin(Date.now() / 250) * 0.2;
-            if (config.enableGlow) {
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = config.accentColor + '0.6)';
-            }
+            // Pulsating cursor particle (where lines converge)
+            const pulseSize = 4 + Math.sin(Date.now() / 200) * 2;
+            const pulseOpacity = 0.6 + Math.sin(Date.now() / 200) * 0.3;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = config.accentColor + '0.8)';
             ctx.fillStyle = config.accentColor + pulseOpacity + ')';
             ctx.beginPath();
             ctx.arc(mouse.realX, mouse.realY, pulseSize, 0, Math.PI * 2);
@@ -245,9 +279,9 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.shadowBlur = 0;
         }
 
-        // Shooting stars (desktop only)
-        if (config.shootingStarInterval > 0 && timestamp - lastShootingStar > config.shootingStarInterval) {
-            shootingStars.push(new ShootingStar());
+        // Shooting stars
+        if (!prefersReducedMotion && timestamp - lastShootingStar > config.shootingStarInterval) {
+            spawnShootingStar();
             lastShootingStar = timestamp;
         }
 
@@ -257,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return !star.isDead();
         });
 
-        if (config.rotationSpeed > 0) {
+        if (!prefersReducedMotion) {
             ctx.restore();
         }
 
@@ -269,20 +303,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     container.addEventListener('mousemove', (e) => {
         const rect = container.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left) / rect.width;
+        mouse.y = (e.clientY - rect.top) / rect.height;
         mouse.realX = e.clientX - rect.left;
         mouse.realY = e.clientY - rect.top;
     });
 
     container.addEventListener('mouseleave', () => {
+        mouse.x = 0.5;
+        mouse.y = 0.5;
         mouse.realX = null;
         mouse.realY = null;
     });
 
-    // Initialize immediately (no debounce for first load)
-    width = container.offsetWidth;
-    height = container.offsetHeight;
-    canvas.width = width;
-    canvas.height = height;
-    initParticles();
+    // Start
+    resize();
     animate(0);
 });
