@@ -286,15 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function animate(timestamp) {
         ctx.clearRect(0, 0, width, height);
 
-        // Global rotation
-        if (!prefersReducedMotion) {
-            rotation += config.rotationSpeed;
-            ctx.save();
-            ctx.translate(width / 2, height / 2);
-            ctx.rotate(rotation);
-            ctx.translate(-width / 2, -height / 2);
-        }
-
         // Update and draw particles
         const len = particles.length;
         for (let i = 0; i < len; i++) {
@@ -391,10 +382,6 @@ document.addEventListener('DOMContentLoaded', () => {
             star.draw();
             return !star.isDead();
         });
-
-        if (!prefersReducedMotion) {
-            ctx.restore();
-        }
 
         animationId = requestAnimationFrame(animate);
     }
