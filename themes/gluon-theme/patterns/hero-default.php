@@ -7,11 +7,11 @@
  * Description: A full-width hero section with heading, text, and call-to-action buttons.
  */
 ?>
-<!-- wp:cover {"dimRatio":0,"overlayColor":"gluon-elevated-light","isUserOverlayColor":true,"minHeight":500,"align":"full","style":{"spacing":{"padding":{"top":"clamp(4rem, 10vw, 8rem)","bottom":"clamp(4rem, 10vw, 8rem)","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
+<!-- wp:cover {"dimRatio":0,"overlayColor":"gluon-surface-light","isUserOverlayColor":true,"minHeight":500,"align":"full","style":{"spacing":{"padding":{"top":"clamp(4rem, 10vw, 8rem)","bottom":"clamp(4rem, 10vw, 8rem)","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}},"border":{"bottom":{"color":"var:preset|color|gluon-border","width":"1px"}}}} -->
 <div class="wp-block-cover alignfull"
-    style="padding-top:clamp(4rem, 10vw, 8rem);padding-right:var(--wp--preset--spacing--40);padding-bottom:clamp(4rem, 10vw, 8rem);padding-left:var(--wp--preset--spacing--40);min-height:500px">
+    style="border-bottom-color:var(--wp--preset--color--gluon-border);border-bottom-width:1px;padding-top:clamp(4rem, 10vw, 8rem);padding-right:var(--wp--preset--spacing--40);padding-bottom:clamp(4rem, 10vw, 8rem);padding-left:var(--wp--preset--spacing--40);min-height:500px">
     <span aria-hidden="true"
-        class="wp-block-cover__background has-gluon-elevated-light-background-color has-background-dim-0 has-background-dim"></span>
+        class="wp-block-cover__background has-gluon-surface-light-background-color has-background-dim-0 has-background-dim"></span>
     <div class="wp-block-cover__inner-container">
         <!-- wp:group {"layout":{"type":"constrained","contentSize":"800px"}} -->
         <div class="wp-block-group">
