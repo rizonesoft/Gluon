@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         parallaxFactor: prefersReducedMotion ? 10 : 30,
         connectionDistance: 150,
         mouseAttractionDistance: 200,
-        rotationSpeed: prefersReducedMotion ? 0 : 0.0001,
+        rotationSpeed: prefersReducedMotion ? 0 : 0.00175, // Full 360° in ~60 seconds
         shootingStarInterval: 8000,
         accentColor: 'rgba(8, 140, 219, ',
     };
