@@ -55,11 +55,11 @@
 ### 2.1 FSE Block Theme Conversion (from Astra/Unibiz research)
 - [x] **Remove PHP templates** — Delete `header.php`, `footer.php`, `index.php`, etc.
 - [x] **Create `theme.json` v3** — Full WordPress 6.9 schema with settings + styles
-- [ ] **Define color palette** — Accent Blue (`#088CDB`), Secondary Green (`#04D98B`), Zinc backgrounds
-- [ ] **Implement dark/light mode toggle** — Accessible switch in header, respects `prefers-color-scheme`
-- [ ] **Add 16 fluid font sizes** — Use `clamp()` like Unibiz
-- [ ] **Enable wide/full alignments** — Required for business layouts
-- [ ] **Configure spacing units** — px, em, rem, vh, vw, %
+- [x] **Define color palette** — Accent Blue (`#088CDB`), Secondary Green (`#04D98B`), Zinc backgrounds
+- [x] **Implement dark/light mode toggle** — Accessible switch in header, respects `prefers-color-scheme`
+- [x] **Add fluid font sizes** — 10 sizes using `clamp()` for responsive typography
+- [x] **Enable wide/full alignments** — Required for business layouts
+- [x] **Configure spacing units** — px, em, rem, vh, vw, %
 
 ### 2.2 Template System (from Unibiz architecture)
 - [ ] **Create `templates/index.html`** — Blog index

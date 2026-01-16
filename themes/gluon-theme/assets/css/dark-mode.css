@@ -1,0 +1,106 @@
+/**
+ * Gluon Theme - Dark Mode Styles
+ * 
+ * Applied when .gluon-dark class is on <html>
+ * Uses CSS custom properties for seamless transitions
+ * 
+ * @package Gluon
+ * @since 1.0.0
+ */
+
+/* Dark mode color overrides */
+.gluon-dark {
+	--wp--preset--color--gluon-surface-light: #18181b;
+	--wp--preset--color--gluon-elevated-light: #27272a;
+	--wp--preset--color--gluon-surface-dark: #fafafa;
+	--wp--preset--color--gluon-elevated-dark: #f4f4f5;
+	--wp--preset--color--gluon-text-primary: #fafafa;
+	--wp--preset--color--gluon-text-secondary: #a1a1aa;
+	--wp--preset--color--gluon-text-inverted: #09090b;
+	--wp--preset--color--gluon-border: #3f3f46;
+	--wp--preset--color--gluon-border-dark: #e4e4e7;
+	
+	color-scheme: dark;
+}
+
+/* Background transitions for smooth mode switching */
+html {
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+body {
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* Theme toggle button base styles */
+[data-gluon-theme-toggle] {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	padding: 0;
+	background: transparent;
+	border: 1px solid var(--wp--preset--color--gluon-border);
+	border-radius: 2px;
+	cursor: pointer;
+	transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+[data-gluon-theme-toggle]:hover {
+	background-color: var(--wp--preset--color--gluon-elevated-light);
+	border-color: var(--wp--preset--color--gluon-accent);
+}
+
+[data-gluon-theme-toggle]:focus-visible {
+	outline: 2px solid var(--wp--preset--color--gluon-accent);
+	outline-offset: 2px;
+}
+
+/* Toggle icon styles */
+[data-gluon-theme-toggle] svg {
+	width: 1.25rem;
+	height: 1.25rem;
+	color: var(--wp--preset--color--gluon-text-primary);
+	transition: color 0.15s ease;
+}
+
+[data-gluon-theme-toggle]:hover svg {
+	color: var(--wp--preset--color--gluon-accent);
+}
+
+/* Icon visibility - moon shown in light mode, sun in dark */
+[data-gluon-theme-toggle] [data-icon="sun"] {
+	display: none;
+}
+
+[data-gluon-theme-toggle] [data-icon="moon"] {
+	display: block;
+}
+
+.gluon-dark [data-gluon-theme-toggle] [data-icon="sun"] {
+	display: block;
+}
+
+.gluon-dark [data-gluon-theme-toggle] [data-icon="moon"] {
+	display: none;
+}
+
+/* Dark mode specific element adjustments */
+.gluon-dark img {
+	opacity: 0.95;
+}
+
+.gluon-dark pre,
+.gluon-dark code {
+	background-color: #27272a;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+	html,
+	body,
+	[data-gluon-theme-toggle] {
+		transition: none;
+	}
+}

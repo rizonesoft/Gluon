@@ -140,6 +140,26 @@ function gluon_scripts()
         array(),
         GLUON_VERSION
     );
+
+    // Enqueue dark mode styles
+    wp_enqueue_style(
+        'gluon-dark-mode',
+        GLUON_URI . '/assets/css/dark-mode.css',
+        array('gluon-style'),
+        GLUON_VERSION
+    );
+
+    // Enqueue theme toggle script
+    wp_enqueue_script(
+        'gluon-theme-toggle',
+        GLUON_URI . '/assets/js/theme-toggle.js',
+        array(),
+        GLUON_VERSION,
+        array(
+            'strategy' => 'defer',
+            'in_footer' => false, // Load in head for faster theme detection
+        )
+    );
 }
 add_action('wp_enqueue_scripts', 'gluon_scripts');
 
