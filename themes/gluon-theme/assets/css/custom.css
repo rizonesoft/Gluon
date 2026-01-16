@@ -7,6 +7,11 @@
  * @since 1.0.0
  */
 
+/* Remove gap between header and content */
+main {
+	margin-top: 0 !important;
+}
+
 /* ==========================================================================
    Fix alignfull edge-to-edge on WordPress FSE themes
    ========================================================================== */
