@@ -62,10 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
         initParticles();
     };
 
-    // Particle Class
     class Particle {
         constructor() {
-            this.x = Math.random() * width;
+            // Spawn on the right 60% of the canvas
+            this.x = width * 0.4 + Math.random() * width * 0.6;
             this.y = Math.random() * height;
             this.vx = (Math.random() - 0.5) * config.baseSpeed;
             this.vy = (Math.random() - 0.5) * config.baseSpeed;
@@ -76,8 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
             this.x += this.vx;
             this.y += this.vy;
 
-            // Bounce off edges
-            if (this.x < 0 || this.x > width) this.vx *= -1;
+            // Bounce off edges (constrained to right 60%)
+            const leftBound = width * 0.4;
+            if (this.x < leftBound) { this.x = leftBound; this.vx *= -1; }
+            if (this.x > width) this.vx *= -1;
             if (this.y < 0 || this.y > height) this.vy *= -1;
 
             // Mouse Interaction (Repulsion)
