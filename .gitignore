@@ -1,0 +1,128 @@
+# ===========================================
+# Gluon - WordPress Theme & Plugin Development
+# ===========================================
+
+# -----------------------------------------
+# Default WordPress Themes (exclude)
+# -----------------------------------------
+themes/twentytwenty/
+themes/twentytwentyone/
+themes/twentytwentytwo/
+themes/twentytwentythree/
+themes/twentytwentyfour/
+themes/twentytwentyfive/
+themes/twentytwentysix/
+
+# -----------------------------------------
+# Example Themes (not part of development)
+# -----------------------------------------
+themes/unibiz/
+themes/astra/
+
+# -----------------------------------------
+# Default WordPress Plugins (exclude)
+# -----------------------------------------
+plugins/akismet/
+plugins/hello.php
+
+# -----------------------------------------
+# WordPress Core Files (exclude)
+# -----------------------------------------
+themes/index.php
+plugins/index.php
+
+# -----------------------------------------
+# Dependencies
+# -----------------------------------------
+node_modules/
+vendor/
+.npm/
+.pnpm-store/
+
+# -----------------------------------------
+# Build artifacts
+# -----------------------------------------
+dist/
+build/
+*.min.css.map
+*.min.js.map
+
+# -----------------------------------------
+# Package manager files
+# -----------------------------------------
+package-lock.json
+yarn.lock
+composer.lock
+
+# -----------------------------------------
+# OS generated files
+# -----------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# -----------------------------------------
+# IDE/Editor files
+# -----------------------------------------
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# -----------------------------------------
+# WordPress local config
+# -----------------------------------------
+wp-config-local.php
+wp-config.local.php
+local-config.php
+
+# -----------------------------------------
+# Debug logs
+# -----------------------------------------
+debug.log
+error_log
+*.log
+
+# -----------------------------------------
+# Backup files
+# -----------------------------------------
+*.bak
+*.backup
+
+# -----------------------------------------
+# Sass cache
+# -----------------------------------------
+.sass-cache/
+
+# -----------------------------------------
+# Environment files
+# -----------------------------------------
+.env
+.env.local
+.env.*.local
+
+# -----------------------------------------
+# Archive files
+# -----------------------------------------
+*.zip
+*.tar.gz
+*.rar
+
+# -----------------------------------------
+# Uploads (user content)
+# -----------------------------------------
+uploads/
+
+# -----------------------------------------
+# Cache directories
+# -----------------------------------------
+cache/
+upgrade/

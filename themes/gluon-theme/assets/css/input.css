@@ -1,0 +1,266 @@
+/*
+ * Gluon Theme - Tailwind CSS v4 Input
+ *
+ * This file is processed by Tailwind CSS to generate style.css
+ * Run: npm run build (production) or npm run watch (development)
+ *
+ * @package Gluon_Theme
+ * @since 1.0.0
+ */
+
+@import "tailwindcss";
+
+/* ==========================================================================
+   Theme Configuration - Rizone Blue Color Palette (OKLCH)
+   ========================================================================== */
+
+@theme {
+    /* -------------------------------------------------------------------------
+     Rizone Blue - Primary Brand Colors (OKLCH color space)
+     ------------------------------------------------------------------------- */
+    --color-rizone-50: oklch(0.97 0.02 250);
+    --color-rizone-100: oklch(0.93 0.04 250);
+    --color-rizone-200: oklch(0.86 0.08 250);
+    --color-rizone-300: oklch(0.76 0.12 250);
+    --color-rizone-400: oklch(0.65 0.16 250);
+    --color-rizone-500: oklch(0.55 0.19 250);
+    /* Primary brand color */
+    --color-rizone-600: oklch(0.48 0.18 250);
+    --color-rizone-700: oklch(0.42 0.16 250);
+    --color-rizone-800: oklch(0.35 0.13 250);
+    --color-rizone-900: oklch(0.28 0.10 250);
+    --color-rizone-950: oklch(0.20 0.08 250);
+
+    /* -------------------------------------------------------------------------
+     Accent Colors - Complementary to Rizone Blue
+     ------------------------------------------------------------------------- */
+    --color-accent-50: oklch(0.97 0.02 180);
+    --color-accent-100: oklch(0.93 0.04 180);
+    --color-accent-200: oklch(0.86 0.08 180);
+    --color-accent-300: oklch(0.76 0.12 180);
+    --color-accent-400: oklch(0.65 0.15 180);
+    --color-accent-500: oklch(0.55 0.15 180);
+    /* Teal accent */
+    --color-accent-600: oklch(0.48 0.14 180);
+    --color-accent-700: oklch(0.42 0.12 180);
+    --color-accent-800: oklch(0.35 0.10 180);
+    --color-accent-900: oklch(0.28 0.08 180);
+
+    /* -------------------------------------------------------------------------
+     Neutral Colors - Slate with blue undertone
+     ------------------------------------------------------------------------- */
+    --color-neutral-50: oklch(0.98 0.005 250);
+    --color-neutral-100: oklch(0.96 0.008 250);
+    --color-neutral-200: oklch(0.92 0.010 250);
+    --color-neutral-300: oklch(0.87 0.012 250);
+    --color-neutral-400: oklch(0.70 0.015 250);
+    --color-neutral-500: oklch(0.55 0.015 250);
+    --color-neutral-600: oklch(0.45 0.015 250);
+    --color-neutral-700: oklch(0.37 0.015 250);
+    --color-neutral-800: oklch(0.27 0.015 250);
+    --color-neutral-900: oklch(0.20 0.015 250);
+    --color-neutral-950: oklch(0.13 0.015 250);
+
+    /* -------------------------------------------------------------------------
+     Semantic Colors
+     ------------------------------------------------------------------------- */
+    --color-primary: var(--color-rizone-500);
+    --color-primary-hover: var(--color-rizone-600);
+    --color-primary-active: var(--color-rizone-700);
+
+    --color-success: oklch(0.65 0.18 145);
+    --color-warning: oklch(0.75 0.18 85);
+    --color-error: oklch(0.60 0.22 25);
+    --color-info: oklch(0.65 0.15 230);
+
+    /* -------------------------------------------------------------------------
+     Typography
+     ------------------------------------------------------------------------- */
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-heading: var(--font-sans);
+    --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+
+    /* -------------------------------------------------------------------------
+     Spacing & Layout
+     ------------------------------------------------------------------------- */
+    --container-width: 1200px;
+    --content-width: 720px;
+
+    /* -------------------------------------------------------------------------
+     Transitions
+     ------------------------------------------------------------------------- */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 400ms ease;
+
+    /* -------------------------------------------------------------------------
+     Border Radius
+     ------------------------------------------------------------------------- */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-full: 9999px;
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        @apply bg-neutral-50 text-neutral-900 antialiased;
+        font-family: var(--font-sans);
+    }
+
+    /* Headings */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-heading);
+        @apply font-bold leading-tight;
+    }
+
+    h1 {
+        @apply text-4xl md:text-5xl;
+    }
+
+    h2 {
+        @apply text-3xl md:text-4xl;
+    }
+
+    h3 {
+        @apply text-2xl md:text-3xl;
+    }
+
+    h4 {
+        @apply text-xl md:text-2xl;
+    }
+
+    h5 {
+        @apply text-lg md:text-xl;
+    }
+
+    h6 {
+        @apply text-base md:text-lg;
+    }
+
+    /* Links */
+    a {
+        @apply text-rizone-600 no-underline transition-colors duration-150;
+    }
+
+    a:hover {
+        @apply text-rizone-700 underline;
+    }
+
+    /* Focus styles for accessibility */
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-rizone-500;
+    }
+}
+
+/* ==========================================================================
+   Component Styles
+   ========================================================================== */
+
+@layer components {
+
+    /* Container */
+    .site-container {
+        @apply mx-auto px-4 sm:px-6 lg:px-8;
+        max-width: var(--container-width);
+    }
+
+    .content-area {
+        @apply mx-auto;
+        max-width: var(--content-width);
+    }
+
+    /* Buttons - Base styles expanded for Tailwind v4 compatibility */
+    .btn {
+        @apply inline-flex items-center justify-center px-4 py-2 rounded-md font-medium transition-all duration-150;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center px-4 py-2 rounded-md font-medium transition-all duration-150;
+        @apply bg-rizone-500 text-white hover:bg-rizone-600 active:bg-rizone-700;
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center px-4 py-2 rounded-md font-medium transition-all duration-150;
+        @apply bg-neutral-200 text-neutral-800 hover:bg-neutral-300;
+    }
+
+    .btn-outline {
+        @apply inline-flex items-center justify-center px-4 py-2 rounded-md font-medium transition-all duration-150;
+        @apply border-2 border-rizone-500 text-rizone-600 hover:bg-rizone-50;
+    }
+
+    /* Cards */
+    .card {
+        @apply bg-white rounded-lg shadow-sm border border-neutral-200 overflow-hidden;
+    }
+
+    .card-body {
+        @apply p-6;
+    }
+
+    /* Skip Link (Accessibility) */
+    .skip-link {
+        @apply fixed -top-24 left-1.5 z-[999999] px-4 py-2 bg-rizone-500 text-white font-semibold rounded transition-all duration-150;
+    }
+
+    .skip-link:focus {
+        @apply top-1.5 text-white no-underline;
+    }
+
+    /* Screen Reader Text */
+    .screen-reader-text {
+        @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+        clip: rect(1px, 1px, 1px, 1px);
+        clip-path: inset(50%);
+    }
+
+    .screen-reader-text:focus {
+        @apply static w-auto h-auto p-4 m-0 overflow-visible whitespace-normal bg-neutral-100 text-neutral-900 font-semibold z-[100000];
+        clip: auto !important;
+        clip-path: none;
+    }
+}
+
+/* ==========================================================================
+   WordPress Specific Utilities
+   ========================================================================== */
+
+@layer utilities {
+
+    /* Alignment classes for blocks */
+    .alignwide {
+        @apply max-w-screen-xl mx-auto;
+    }
+
+    .alignfull {
+        @apply w-full max-w-none;
+    }
+
+    .alignleft {
+        @apply float-left mr-6 mb-4;
+    }
+
+    .alignright {
+        @apply float-right ml-6 mb-4;
+    }
+
+    .aligncenter {
+        @apply mx-auto block;
+    }
+}

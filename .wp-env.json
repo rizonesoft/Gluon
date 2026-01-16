@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/wp-env.json",
+    "core": "WordPress/WordPress#master",
+    "phpVersion": "8.3",
+    "plugins": [
+        "./plugins"
+    ],
+    "themes": [
+        "./themes/gluon-theme"
+    ],
+    "config": {
+        "WP_DEBUG": true,
+        "WP_DEBUG_LOG": true,
+        "WP_DEBUG_DISPLAY": true,
+        "SCRIPT_DEBUG": true,
+        "WP_ENVIRONMENT_TYPE": "local"
+    },
+    "mappings": {
+        "wp-content/themes/gluon-theme": "./themes/gluon-theme"
+    },
+    "env": {
+        "development": {
+            "phpVersion": "8.3",
+            "config": {
+                "WP_DEBUG": true,
+                "WP_DEBUG_LOG": true,
+                "WP_DEBUG_DISPLAY": true,
+                "SCRIPT_DEBUG": true
+            }
+        },
+        "tests": {
+            "phpVersion": "8.3",
+            "config": {
+                "WP_DEBUG": true,
+                "WP_DEBUG_LOG": true
+            }
+        }
+    },
+    "lifecycleScripts": {
+        "afterStart": "wp theme activate gluon-theme"
+    }
+}
