@@ -82,11 +82,11 @@
 ### 2.4 Block Patterns Library
 - [x] **Hero sections** — Default hero with CTA buttons
 - [x] **Feature grids** — 3-column with icons
-- [ ] **Testimonials** — Carousel, grid, single featured
+- [x] **Testimonials** — 3-column grid with ratings and avatars
 - [ ] **Team members** — Grid, carousel, with social links
-- [ ] **Pricing tables** — Comparison, tiered, toggle monthly/annual
+- [x] **Pricing tables** — 3-tier comparison with highlighted plan
 - [x] **Call-to-action** — Accent background banner
-- [ ] **Contact sections** — Form, map, info cards
+- [x] **Contact sections** — Info cards with contact form
 - [ ] **FAQ/Accordion** — Native WordPress 6.9 accordion block styling
 - [ ] **Portfolio/Gallery** — Masonry, filterable, lightbox
 

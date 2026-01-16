@@ -153,6 +153,27 @@ function gluon_register_pattern_categories()
             'label' => esc_html__('Gluon Call to Action', 'gluon'),
         )
     );
+
+    register_block_pattern_category(
+        'gluon-testimonials',
+        array(
+            'label' => esc_html__('Gluon Testimonials', 'gluon'),
+        )
+    );
+
+    register_block_pattern_category(
+        'gluon-pricing',
+        array(
+            'label' => esc_html__('Gluon Pricing', 'gluon'),
+        )
+    );
+
+    register_block_pattern_category(
+        'gluon-contact',
+        array(
+            'label' => esc_html__('Gluon Contact', 'gluon'),
+        )
+    );
 }
 add_action('init', 'gluon_register_pattern_categories');
 
