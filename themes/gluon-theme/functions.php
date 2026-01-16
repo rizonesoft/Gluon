@@ -21,6 +21,11 @@ define('GLUON_DIR', get_template_directory());
 define('GLUON_URI', get_template_directory_uri());
 
 /**
+ * Include additional theme files
+ */
+require_once GLUON_DIR . '/inc/icons.php';
+
+/**
  * Sets up theme defaults and registers support for various WordPress features.
  *
  * @since 1.0.0
@@ -226,6 +231,14 @@ function gluon_scripts()
     wp_enqueue_style(
         'gluon-backgrounds',
         GLUON_URI . '/assets/css/backgrounds.css',
+        array('gluon-style'),
+        GLUON_VERSION
+    );
+
+    // Enqueue icon styles
+    wp_enqueue_style(
+        'gluon-icons',
+        GLUON_URI . '/assets/css/icons.css',
         array('gluon-style'),
         GLUON_VERSION
     );

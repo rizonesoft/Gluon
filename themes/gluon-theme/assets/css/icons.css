@@ -1,0 +1,277 @@
+/**
+ * Gluon Theme - Icon Styles
+ * 
+ * Styling for Lucide icons integration
+ * 
+ * @package Gluon
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   Base Icon Styles
+   ========================================================================== */
+
+.gluon-icon {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    width: 1em;
+    height: 1em;
+    stroke-width: 2;
+    stroke: currentColor;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Icon sizes */
+.gluon-icon-xs {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+.gluon-icon-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+.gluon-icon-md {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.gluon-icon-lg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.gluon-icon-xl {
+    width: 2rem;
+    height: 2rem;
+}
+
+.gluon-icon-2xl {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+/* ==========================================================================
+   Icon Colors
+   ========================================================================== */
+
+.gluon-icon-accent {
+    color: var(--color-gluon-accent-500, #088CDB);
+}
+
+.gluon-icon-secondary {
+    color: var(--color-gluon-secondary-500, #04D98B);
+}
+
+.gluon-icon-muted {
+    color: var(--color-gluon-text-muted, #a1a1aa);
+}
+
+.gluon-icon-success {
+    color: var(--color-gluon-success, #04D98B);
+}
+
+.gluon-icon-warning {
+    color: var(--color-gluon-warning, #f59e0b);
+}
+
+.gluon-icon-error {
+    color: var(--color-gluon-error, #ef4444);
+}
+
+.gluon-icon-info {
+    color: var(--color-gluon-info, #088CDB);
+}
+
+/* ==========================================================================
+   Icon with Text
+   ========================================================================== */
+
+.gluon-icon-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.gluon-icon-text .gluon-icon {
+    flex-shrink: 0;
+}
+
+/* Icon before/after text */
+.gluon-icon-left {
+    margin-right: 0.375rem;
+}
+
+.gluon-icon-right {
+    margin-left: 0.375rem;
+}
+
+/* ==========================================================================
+   Icon Buttons
+   ========================================================================== */
+
+.gluon-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: var(--gluon-radius-sm, 2px);
+    background: transparent;
+    border: none;
+    color: var(--color-gluon-text-secondary, #71717a);
+    cursor: pointer;
+    transition: color 150ms ease, background-color 150ms ease;
+}
+
+.gluon-icon-btn:hover {
+    color: var(--color-gluon-text-primary, #09090b);
+    background-color: var(--color-zinc-100, #f4f4f5);
+}
+
+.gluon-icon-btn:focus-visible {
+    outline: 2px solid var(--color-gluon-accent-500, #088CDB);
+    outline-offset: 2px;
+}
+
+.gluon-dark .gluon-icon-btn:hover {
+    color: var(--color-gluon-text-inverted, #fafafa);
+    background-color: var(--color-zinc-800, #27272a);
+}
+
+/* Icon button variants */
+.gluon-icon-btn-accent {
+    color: var(--color-gluon-accent-500, #088CDB);
+}
+
+.gluon-icon-btn-accent:hover {
+    background-color: var(--color-gluon-accent-50, #e0f2fe);
+}
+
+/* ==========================================================================
+   Icon Circles / Badges
+   ========================================================================== */
+
+.gluon-icon-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: var(--color-zinc-100, #f4f4f5);
+    color: var(--color-gluon-text-secondary, #71717a);
+}
+
+.gluon-icon-circle-sm {
+    width: 2rem;
+    height: 2rem;
+}
+
+.gluon-icon-circle-lg {
+    width: 3rem;
+    height: 3rem;
+}
+
+.gluon-icon-circle-accent {
+    background-color: var(--color-gluon-accent-100, #dbeafe);
+    color: var(--color-gluon-accent-600, #0369a1);
+}
+
+.gluon-icon-circle-secondary {
+    background-color: var(--color-gluon-secondary-100, #d1fae5);
+    color: var(--color-gluon-secondary-700, #047857);
+}
+
+.gluon-dark .gluon-icon-circle {
+    background-color: var(--color-zinc-800, #27272a);
+    color: var(--color-zinc-400, #a1a1aa);
+}
+
+/* ==========================================================================
+   Social Icons
+   ========================================================================== */
+
+.gluon-social-icons {
+    display: flex;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.gluon-social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    color: var(--color-gluon-text-secondary, #71717a);
+    transition: color 150ms ease, background-color 150ms ease;
+}
+
+.gluon-social-icons a:hover {
+    color: var(--color-gluon-accent-500, #088CDB);
+    background-color: var(--color-zinc-100, #f4f4f5);
+    text-decoration: none;
+}
+
+.gluon-dark .gluon-social-icons a:hover {
+    background-color: var(--color-zinc-800, #27272a);
+}
+
+/* ==========================================================================
+   Animated Icons
+   ========================================================================== */
+
+.gluon-icon-spin {
+    animation: gluon-icon-spin 1s linear infinite;
+}
+
+@keyframes gluon-icon-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.gluon-icon-pulse {
+    animation: gluon-icon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes gluon-icon-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.gluon-icon-bounce {
+    animation: gluon-icon-bounce 1s ease infinite;
+}
+
+@keyframes gluon-icon-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .gluon-icon-spin,
+    .gluon-icon-pulse,
+    .gluon-icon-bounce {
+        animation: none;
+    }
+}
