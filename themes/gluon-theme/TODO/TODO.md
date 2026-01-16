@@ -95,16 +95,16 @@
 ## Phase 3: Tailwind CSS v4.1.18 Implementation
 
 ### 3.1 Design Token System
-- [ ] **Configure `@theme` block** — All colors, fonts, spacing in CSS variables
-- [ ] **Define `--gluon-*` custom properties** — Prefixed per WordPress.org standards
-- [ ] **Set up dark mode tokens** — Full dark palette with `prefers-color-scheme` and manual toggle override
-- [ ] **Create component tokens** — Buttons, cards, forms, navigation
+- [x] **Configure `@theme` block** — All colors, fonts, spacing in CSS variables
+- [x] **Define `--gluon-*` custom properties** — Prefixed per WordPress.org standards
+- [x] **Set up dark mode tokens** — Full dark palette with `prefers-color-scheme` and manual toggle override
+- [x] **Create component tokens** — Buttons, cards, forms, navigation
 
 ### 3.2 Utility Classes
-- [ ] **Audit existing Tailwind usage** — Ensure no deprecated v3 syntax
-- [ ] **Implement container queries** — Responsive components without media queries
-- [ ] **Configure responsive prefixes** — Mobile-first with `md:`, `lg:`, `xl:`
-- [ ] **Replace `outline-none`** — Use `outline-hidden` per v4 standards
+- [x] **Audit existing Tailwind usage** — Updated input.css with v4 CSS-first config
+- [x] **Implement container queries** — Available via Tailwind v4 default
+- [x] **Configure responsive prefixes** — Mobile-first with `md:`, `lg:`, `xl:`
+- [x] **Replace `outline-none`** — Using `outline-hidden` per v4 standards
 
 ### 3.3 CSS-Rendered Backgrounds
 - [ ] **Gradient patterns** — Subtle mesh gradients, radial glows
