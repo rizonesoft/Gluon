@@ -131,12 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.shadowColor = config.accentColor + '0.3)';
             }
 
-            // Use globalAlpha + drawImage (optimization)
-            ctx.globalAlpha = this.opacity;
-            const sprite = isDark ? darkSprite : lightSprite;
-            const drawSize = this.size * 2;
-            ctx.drawImage(sprite, this.x - drawSize / 2, this.y - drawSize / 2, drawSize, drawSize);
-            ctx.globalAlpha = 1;
+            // Draw particle with proper size
+            const color = isDark ? `rgba(250, 250, 250, ${this.opacity})` : `rgba(24, 24, 27, ${this.opacity})`;
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
             ctx.shadowBlur = 0;
         }
     }
