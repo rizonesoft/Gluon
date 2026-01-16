@@ -53,7 +53,7 @@
 ## Phase 2: Core Theme Architecture 🔴 HIGH PRIORITY
 
 ### 2.1 FSE Block Theme Conversion (from Astra/Unibiz research)
-- [ ] **Remove PHP templates** — Delete `header.php`, `footer.php`, `index.php`, etc.
+- [x] **Remove PHP templates** — Delete `header.php`, `footer.php`, `index.php`, etc.
 - [ ] **Create `theme.json` v3** — Full WordPress 6.9 schema with settings + styles
 - [ ] **Define color palette** — Accent Blue (`#088CDB`), Secondary Green (`#04D98B`), Zinc backgrounds
 - [ ] **Implement dark/light mode toggle** — Accessible switch in header, respects `prefers-color-scheme`
@@ -92,7 +92,7 @@
 
 ---
 
-## Phase 3: Tailwind CSS v4 Implementation
+## Phase 3: Tailwind CSS v4.1.18 Implementation
 
 ### 3.1 Design Token System
 - [ ] **Configure `@theme` block** — All colors, fonts, spacing in CSS variables
