@@ -69,7 +69,7 @@ function gluon_enable_svg_upload($mimes)
 add_filter('upload_mimes', 'gluon_enable_svg_upload');
 
 /**
- * Sanitize SVG on upload
+ * Sanitize SVG on upload using DOMDocument
  */
 function gluon_sanitize_svg($file)
 {
@@ -78,21 +78,59 @@ function gluon_sanitize_svg($file)
     }
 
     if ($file['type'] === 'image/svg+xml') {
-        // Basic SVG sanitization
         $svg_content = file_get_contents($file['tmp_name']);
 
-        // Remove potentially dangerous elements
-        $dangerous = array(
-            '/<script\b[^>]*>(.*?)<\/script>/is',
-            '/on\w+="[^"]*"/i',
-            '/on\w+=\'[^\']*\'/i',
-            '/<foreignObject\b[^>]*>(.*?)<\/foreignObject>/is',
-        );
+        // Use DOMDocument for proper XML parsing
+        libxml_use_internal_errors(true);
+        $dom = new DOMDocument();
+        $dom->formatOutput = false;
+        $dom->preserveWhiteSpace = true;
 
-        $svg_content = preg_replace($dangerous, '', $svg_content);
+        // Load SVG content
+        if (!$dom->loadXML($svg_content, LIBXML_NONET | LIBXML_NOENT)) {
+            // If invalid XML, reject the file
+            $file['error'] = __('Invalid SVG file.', 'gluon');
+            return $file;
+        }
 
-        // Write sanitized content back
-        file_put_contents($file['tmp_name'], $svg_content);
+        // Elements to remove
+        $dangerous_elements = array('script', 'foreignObject', 'use');
+        foreach ($dangerous_elements as $tag) {
+            $elements = $dom->getElementsByTagName($tag);
+            while ($elements->length > 0) {
+                $elements->item(0)->parentNode->removeChild($elements->item(0));
+            }
+        }
+
+        // Attributes to remove (event handlers and external references)
+        $xpath = new DOMXPath($dom);
+        $dangerous_attrs = array('onclick', 'onload', 'onerror', 'onmouseover', 'onfocus', 'onblur');
+
+        foreach ($dangerous_attrs as $attr) {
+            $nodes = $xpath->query('//*[@' . $attr . ']');
+            foreach ($nodes as $node) {
+                $node->removeAttribute($attr);
+            }
+        }
+
+        // Remove href/xlink:href with javascript:
+        $hrefs = $xpath->query('//*[@href or @*[local-name()="href"]]');
+        foreach ($hrefs as $node) {
+            foreach (array('href', 'xlink:href') as $attr) {
+                if ($node->hasAttribute($attr)) {
+                    $value = $node->getAttribute($attr);
+                    if (preg_match('/^\s*javascript:/i', $value)) {
+                        $node->removeAttribute($attr);
+                    }
+                }
+            }
+        }
+
+        // Save sanitized SVG
+        $sanitized = $dom->saveXML($dom->documentElement);
+        file_put_contents($file['tmp_name'], $sanitized);
+
+        libxml_clear_errors();
     }
 
     return $file;
