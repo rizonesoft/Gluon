@@ -12,6 +12,28 @@ main {
 	margin-top: 0 !important;
 }
 
+/* Nebula gradient for starfield depth */
+.gluon-particles-container::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(
+		ellipse at 75% 25%,
+		rgba(8, 140, 219, 0.04),
+		transparent 50%
+	),
+	radial-gradient(
+		ellipse at 25% 75%,
+		rgba(4, 217, 139, 0.03),
+		transparent 45%
+	);
+	pointer-events: none;
+	z-index: -1;
+}
+
 /* ==========================================================================
    Fix alignfull edge-to-edge on WordPress FSE themes
    ========================================================================== */

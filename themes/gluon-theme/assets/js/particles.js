@@ -29,17 +29,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Configuration
     const config = {
-        particleCount: window.innerWidth < 768 ? 60 : 150,
-        anchorCount: window.innerWidth < 768 ? 3 : 7,
-        secondaryCount: window.innerWidth < 768 ? 5 : 15, // Gluon Green particles
-        baseSpeed: prefersReducedMotion ? 0.05 : 0.15,
+        particleCount: window.innerWidth < 768 ? 80 : 200, // More stars
+        anchorCount: window.innerWidth < 768 ? 2 : 4,      // Reduced
+        secondaryCount: window.innerWidth < 768 ? 3 : 8,   // Reduced
+        baseSpeed: prefersReducedMotion ? 0.03 : 0.08,     // Slower
+        driftSpeed: prefersReducedMotion ? 0 : 0.03,       // Slower orbit drift
         parallaxFactor: prefersReducedMotion ? 10 : 30,
-        connectionDistance: 150,
+        connectionDistance: 120,                           // Slightly shorter
+        connectionOpacity: 0.08,                           // Much fainter
         mouseAttractionDistance: 200,
         rotationSpeed: prefersReducedMotion ? 0 : 0.0001,
-        shootingStarInterval: 8000,
-        accentColor: 'rgba(8, 140, 219, ',     // Gluon Blue
-        secondaryColor: 'rgba(4, 217, 139, ',  // Gluon Green
+        shootingStarInterval: 10000,                       // Less frequent
+        accentColor: 'rgba(8, 140, 219, ',
+        secondaryColor: 'rgba(4, 217, 139, ',
     };
 
     // Pre-calculate squared distances (optimization)
@@ -105,16 +107,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         reset() {
-            this.z = Math.random();
+            // Exponential distribution: more small stars, fewer big ones
+            this.z = Math.pow(Math.random(), 1.5);
             this.baseX = Math.random() * width;
             this.baseY = Math.random() * height;
             this.x = this.baseX;
             this.y = this.baseY;
             this.vx = (Math.random() - 0.5) * config.baseSpeed;
             this.vy = (Math.random() - 0.5) * config.baseSpeed;
-            this.size = 0.5 + this.z * 2.5;
-            this.opacity = 0.2 + this.z * 0.6;
-            this.hasGlow = this.z > 0.8;
+            this.size = 0.3 + this.z * 2.5;               // Smaller minimum
+            this.baseOpacity = 0.15 + this.z * 0.6;       // Base opacity for twinkle
+            this.opacity = this.baseOpacity;
+            this.hasGlow = this.z > 0.85;
+            this.twinkleSpeed = 0.02 + Math.random() * 0.03; // Twinkle rate
+            this.twinklePhase = Math.random() * Math.PI * 2;
         }
 
         update() {
@@ -122,8 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
             this.baseX += this.vx;
             this.baseY += this.vy;
 
-            // Add slow horizontal drift based on depth (orbit effect)
-            this.baseX += this.z * 0.08;
+            // Slow horizontal drift based on depth (orbit effect)
+            this.baseX += this.z * config.driftSpeed;
 
             // Wrap around horizontally (both edges)
             if (this.baseX > width + 10) {
@@ -137,6 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             this.x = this.baseX;
             this.y = this.baseY;
+
+            // Twinkling effect
+            this.twinklePhase += this.twinkleSpeed;
+            this.opacity = this.baseOpacity + Math.sin(this.twinklePhase) * 0.1;
         }
 
         draw() {
@@ -318,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const distSq = dx * dx + dy * dy;
 
                 if (distSq < connectionDistSq) {
-                    const opacity = (1 - distSq / connectionDistSq) * 0.25;
+                    const opacity = (1 - distSq / connectionDistSq) * config.connectionOpacity;
                     // Draw each line individually (opacity varies)
                     ctx.strokeStyle = isDark
                         ? `rgba(250, 250, 250, ${opacity})`
