@@ -83,12 +83,12 @@
 - [x] **Hero sections** — Default hero with CTA buttons
 - [x] **Feature grids** — 3-column with icons
 - [x] **Testimonials** — 3-column grid with ratings and avatars
-- [ ] **Team members** — Grid, carousel, with social links
+- [x] **Team members** — 4-column grid with photos and social links
 - [x] **Pricing tables** — 3-tier comparison with highlighted plan
 - [x] **Call-to-action** — Accent background banner
 - [x] **Contact sections** — Info cards with contact form
-- [ ] **FAQ/Accordion** — Native WordPress 6.9 accordion block styling
-- [ ] **Portfolio/Gallery** — Masonry, filterable, lightbox
+- [x] **FAQ/Accordion** — Native WordPress details block
+- [x] **Portfolio/Gallery** — 3-column project cards
 
 ---
 
