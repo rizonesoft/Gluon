@@ -262,18 +262,6 @@ function gluon_scripts()
             'in_footer' => false, // Load in head for faster theme detection
         )
     );
-
-    // Enqueue particle system
-    wp_enqueue_script(
-        'gluon-particles',
-        GLUON_URI . '/assets/js/particles.js',
-        array(),
-        GLUON_VERSION,
-        array(
-            'strategy' => 'defer',
-            'in_footer' => true,
-        )
-    );
 }
 add_action('wp_enqueue_scripts', 'gluon_scripts');
 

@@ -11,12 +11,6 @@
 <div class="wp-block-group alignfull has-gluon-surface-light-background-color has-background"
     style="border-bottom-color:var(--wp--preset--color--gluon-border);border-bottom-width:1px;padding-top:clamp(6rem, 12vw, 10rem);padding-right:var(--wp--preset--spacing--40);padding-bottom:clamp(6rem, 12vw, 10rem);padding-left:var(--wp--preset--spacing--40);position:relative;overflow:hidden">
 
-    <!-- wp:html -->
-    <div class="gluon-particles-container"
-        style="position:absolute;top:0;left:0;width:100%;height:100%;max-width:none !important;z-index:0;">
-    </div>
-    <!-- /wp:html -->
-
     <!-- wp:group {"style":{"position":{"type":"relative"}},"layout":{"type":"constrained","contentSize":"800px"}} -->
     <div class="wp-block-group" style="position:relative;z-index:1">
         <!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontSize":"clamp(2.5rem, 5vw, 4.5rem)","fontWeight":"700","letterSpacing":"-0.02em","lineHeight":"1.1"}},"textColor":"gluon-text-primary"} -->
