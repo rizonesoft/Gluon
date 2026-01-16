@@ -62,20 +62,20 @@
 - [x] **Configure spacing units** — px, em, rem, vh, vw, %
 
 ### 2.2 Template System (from Unibiz architecture)
-- [ ] **Create `templates/index.html`** — Blog index
-- [ ] **Create `templates/home.html`** — Front page with pattern includes
-- [ ] **Create `templates/page.html`** — Default page
-- [ ] **Create `templates/page-no-sidebar.html`** — Full-width page
-- [ ] **Create `templates/single.html`** — Single post
-- [ ] **Create `templates/archive.html`** — Archive pages
-- [ ] **Create `templates/search.html`** — Search results
-- [ ] **Create `templates/404.html`** — Error page
-- [ ] **Create `templates/blank-canvas.html`** — Empty template
+- [x] **Create `templates/index.html`** — Blog index
+- [x] **Create `templates/home.html`** — Front page with pattern includes
+- [x] **Create `templates/page.html`** — Default page
+- [x] **Create `templates/page-no-sidebar.html`** — Full-width page
+- [x] **Create `templates/single.html`** — Single post
+- [x] **Create `templates/archive.html`** — Archive pages
+- [x] **Create `templates/search.html`** — Search results
+- [x] **Create `templates/404.html`** — Error page
+- [x] **Create `templates/blank-canvas.html`** — Empty template
 
 ### 2.3 Template Parts (from Astra/Unibiz)
-- [ ] **Create `parts/header.html`** — Main header with nav
+- [x] **Create `parts/header.html`** — Main header with nav and dark mode toggle
 - [ ] **Create `parts/header-transparent.html`** — Overlay header variation
-- [ ] **Create `parts/footer.html`** — Main footer with widgets/social
+- [x] **Create `parts/footer.html`** — Main footer with widgets/social
 - [ ] **Create `parts/footer-minimal.html`** — Simple copyright bar
 - [ ] **Create `parts/sidebar.html`** — Widget sidebar
 
