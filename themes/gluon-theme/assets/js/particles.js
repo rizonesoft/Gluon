@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.gluon-particles-container');
     if (!container) return;
 
+    // Only run in dark mode
+    const isDarkMode = document.documentElement.classList.contains('gluon-dark');
+    if (!isDarkMode) return;
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const canvas = document.createElement('canvas');
