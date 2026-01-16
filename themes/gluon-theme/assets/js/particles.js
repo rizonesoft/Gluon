@@ -116,10 +116,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         update() {
+            // Standard random movement
             this.baseX += this.vx;
             this.baseY += this.vy;
-            if (this.baseX < 0 || this.baseX > width) this.vx *= -1;
+
+            // Add slow horizontal drift based on depth (orbit effect)
+            this.baseX += this.z * 0.08;
+
+            // Wrap around horizontally (continuous drift)
+            if (this.baseX > width + 10) {
+                this.baseX = -10;
+            }
+
+            // Bounce on top/bottom only
             if (this.baseY < 0 || this.baseY > height) this.vy *= -1;
+
             this.x = this.baseX;
             this.y = this.baseY;
         }
