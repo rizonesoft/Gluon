@@ -31,19 +31,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let animationId;
     let resizeTimeout;
 
+    // Dynamic particle count based on screen width
+    function getParticleCounts() {
+        const w = window.innerWidth;
+        if (w < 768) {
+            return { particles: 40, anchors: 2, secondary: 2 };
+        } else if (w < 1440) {
+            return { particles: 200, anchors: 4, secondary: 6 };
+        } else {
+            return { particles: 250, anchors: 5, secondary: 8 };
+        }
+    }
+
     // Configuration
     const config = {
-        particleCount: window.innerWidth < 768 ? 40 : 150,  // Reduced mobile
-        anchorCount: window.innerWidth < 768 ? 2 : 4,
-        secondaryCount: window.innerWidth < 768 ? 2 : 6,
-        baseSpeed: prefersReducedMotion ? 0.03 : 0.08,     // Slower
-        driftSpeed: prefersReducedMotion ? 0 : 0.03,       // Slower orbit drift
+        baseSpeed: prefersReducedMotion ? 0.03 : 0.08,
+        driftSpeed: prefersReducedMotion ? 0 : 0.03,
         parallaxFactor: prefersReducedMotion ? 10 : 30,
-        connectionDistance: 120,                           // Slightly shorter
-        connectionOpacity: 0.2,                            // Visible tech lines
+        connectionDistance: 120,
+        connectionOpacity: 0.2,
         mouseAttractionDistance: 200,
         rotationSpeed: prefersReducedMotion ? 0 : 0.0001,
-        shootingStarInterval: 10000,                       // Less frequent
+        shootingStarInterval: 10000,
         accentColor: 'rgba(8, 140, 219, ',
         secondaryColor: 'rgba(4, 217, 139, ',
     };
@@ -91,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.width = width;
         canvas.height = height;
 
-        // Debounce particle reinitialization only
+        // Debounce particle reinitialization with recalculated counts
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
             initParticles();
@@ -272,16 +281,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let secondaryParticles = [];
 
     function initParticles() {
+        const counts = getParticleCounts();
         particles = [];
         anchorParticles = [];
         secondaryParticles = [];
-        for (let i = 0; i < config.particleCount; i++) {
+        for (let i = 0; i < counts.particles; i++) {
             particles.push(new Particle());
         }
-        for (let i = 0; i < config.anchorCount; i++) {
+        for (let i = 0; i < counts.anchors; i++) {
             anchorParticles.push(new AnchorParticle());
         }
-        for (let i = 0; i < config.secondaryCount; i++) {
+        for (let i = 0; i < counts.secondary; i++) {
             secondaryParticles.push(new SecondaryParticle());
         }
     }
