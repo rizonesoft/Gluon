@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Configuration
     const config = {
-        particleCount: window.innerWidth < 768 ? 80 : 200, // More stars
-        anchorCount: window.innerWidth < 768 ? 2 : 4,      // Reduced
-        secondaryCount: window.innerWidth < 768 ? 3 : 8,   // Reduced
+        particleCount: window.innerWidth < 768 ? 40 : 150,  // Reduced mobile
+        anchorCount: window.innerWidth < 768 ? 2 : 4,
+        secondaryCount: window.innerWidth < 768 ? 2 : 6,
         baseSpeed: prefersReducedMotion ? 0.03 : 0.08,     // Slower
         driftSpeed: prefersReducedMotion ? 0 : 0.03,       // Slower orbit drift
         parallaxFactor: prefersReducedMotion ? 10 : 30,
@@ -83,16 +83,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
-    // Debounced Resize Handler (optimization)
+    // Resize Handler - update canvas immediately, debounce particle reinit
     const resize = () => {
+        // Immediately update canvas size (prevents stretching)
+        width = container.offsetWidth;
+        height = container.offsetHeight;
+        canvas.width = width;
+        canvas.height = height;
+
+        // Debounce particle reinitialization only
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            width = container.offsetWidth;
-            height = container.offsetHeight;
-            canvas.width = width;
-            canvas.height = height;
             initParticles();
-        }, 100);
+        }, 150);
     };
 
     // Immediate resize for first load
