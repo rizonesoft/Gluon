@@ -54,7 +54,7 @@
 
 ### 2.1 FSE Block Theme Conversion (from Astra/Unibiz research)
 - [x] **Remove PHP templates** — Delete `header.php`, `footer.php`, `index.php`, etc.
-- [ ] **Create `theme.json` v3** — Full WordPress 6.9 schema with settings + styles
+- [x] **Create `theme.json` v3** — Full WordPress 6.9 schema with settings + styles
 - [ ] **Define color palette** — Accent Blue (`#088CDB`), Secondary Green (`#04D98B`), Zinc backgrounds
 - [ ] **Implement dark/light mode toggle** — Accessible switch in header, respects `prefers-color-scheme`
 - [ ] **Add 16 fluid font sizes** — Use `clamp()` like Unibiz
