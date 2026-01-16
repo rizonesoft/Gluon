@@ -1,57 +1,44 @@
 /**
- * Gluon Theme - Interactive Particles
- * Lightweight vanilla JS particle system for hero section.
+ * Gluon Theme - Starfield Particles
+ * ReactBits-inspired cosmos effect with depth and parallax.
  * 
  * Features:
- * - Responsive canvas
- * - Theme-aware colors (Light/Dark)
- * - Mouse interaction (repulsion/connection)
- * - Performance optimized (requestAnimationFrame, offscreen checks)
+ * - No connection lines (clean starfield)
+ * - Varied sizes + opacity for depth
+ * - 3D Parallax on mouse move
+ * - Theme-aware colors
+ * - Right-aligned spawn (60% right)
  */
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.gluon-particles-container');
-    if (!container) return; // Exit if no container
+    if (!container) return;
 
     const canvas = document.createElement('canvas');
-    canvas.style.position = 'absolute';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.pointerEvents = 'none'; // Let clicks pass through
-    canvas.style.zIndex = '0'; // Behind content
+    canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
     container.appendChild(canvas);
 
     const ctx = canvas.getContext('2d');
     let width, height;
     let particles = [];
+    let animationId;
 
     // Configuration
     const config = {
-        particleCount: window.innerWidth < 768 ? 40 : 80,
-        connectionDistance: 120,
-        mouseDistance: 200,
-        baseSpeed: 0.5,
-        colors: {
-            light: { dot: 'rgba(24, 24, 27, 0.4)', line: 'rgba(24, 24, 27, 0.1)' }, // Zinc-900
-            dark: { dot: 'rgba(250, 250, 250, 0.4)', line: 'rgba(250, 250, 250, 0.1)' }, // Zinc-50
-            accent: 'rgba(8, 140, 219, 0.5)' // Gluon Blue
-        }
+        particleCount: window.innerWidth < 768 ? 60 : 150,
+        baseSpeed: 0.15, // Very slow drift
+        parallaxFactor: 30, // How much parallax shift
+        spawnRight: 0.3, // Spawn on right 70% of canvas
     };
 
     // State
-    let mouse = { x: null, y: null };
+    let mouse = { x: 0.5, y: 0.5 }; // Normalized (0-1), center default
     let isDark = document.documentElement.classList.contains('gluon-dark');
 
     // Theme Observer
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.attributeName === 'class') {
-                isDark = document.documentElement.classList.contains('gluon-dark');
-            }
-        });
+    const observer = new MutationObserver(() => {
+        isDark = document.documentElement.classList.contains('gluon-dark');
     });
-    observer.observe(document.documentElement, { attributes: true });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
     // Resize Handler
     const resize = () => {
@@ -62,47 +49,55 @@ document.addEventListener('DOMContentLoaded', () => {
         initParticles();
     };
 
+    // Particle Class (Depth-based)
     class Particle {
         constructor() {
-            // Spawn on the right 60% of the canvas
-            this.x = width * 0.4 + Math.random() * width * 0.6;
-            this.y = Math.random() * height;
+            this.reset();
+        }
+
+        reset() {
+            // Depth (0 = far, 1 = close)
+            this.z = Math.random();
+
+            // Position (right-aligned)
+            this.baseX = width * config.spawnRight + Math.random() * width * (1 - config.spawnRight);
+            this.baseY = Math.random() * height;
+            this.x = this.baseX;
+            this.y = this.baseY;
+
+            // Movement
             this.vx = (Math.random() - 0.5) * config.baseSpeed;
             this.vy = (Math.random() - 0.5) * config.baseSpeed;
-            this.size = Math.random() * 2 + 1;
+
+            // Size based on depth (closer = bigger)
+            this.size = 0.5 + this.z * 2.5;
+
+            // Opacity based on depth (closer = brighter)
+            this.opacity = 0.2 + this.z * 0.6;
         }
 
         update() {
-            this.x += this.vx;
-            this.y += this.vy;
+            // Slow drift
+            this.baseX += this.vx;
+            this.baseY += this.vy;
 
-            // Bounce off edges (constrained to right 60%)
-            const leftBound = width * 0.4;
-            if (this.x < leftBound) { this.x = leftBound; this.vx *= -1; }
-            if (this.x > width) this.vx *= -1;
-            if (this.y < 0 || this.y > height) this.vy *= -1;
+            // Constrain to right side
+            const leftBound = width * config.spawnRight;
+            if (this.baseX < leftBound) { this.baseX = leftBound; this.vx *= -1; }
+            if (this.baseX > width) { this.vx *= -1; this.baseX = width; }
+            if (this.baseY < 0 || this.baseY > height) this.vy *= -1;
 
-            // Mouse Interaction (Repulsion)
-            if (mouse.x != null) {
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
+            // Parallax offset based on mouse and depth
+            const parallaxX = (mouse.x - 0.5) * config.parallaxFactor * this.z;
+            const parallaxY = (mouse.y - 0.5) * config.parallaxFactor * this.z;
 
-                if (distance < config.mouseDistance) {
-                    const forceDirectionX = dx / distance;
-                    const forceDirectionY = dy / distance;
-                    const force = (config.mouseDistance - distance) / config.mouseDistance;
-                    const directionX = forceDirectionX * force * 3; // Push strength
-                    const directionY = forceDirectionY * force * 3;
-
-                    this.vx -= directionX * 0.05;
-                    this.vy -= directionY * 0.05;
-                }
-            }
+            this.x = this.baseX + parallaxX;
+            this.y = this.baseY + parallaxY;
         }
 
         draw() {
-            ctx.fillStyle = isDark ? config.colors.dark.dot : config.colors.light.dot;
+            const color = isDark ? `rgba(250, 250, 250, ${this.opacity})` : `rgba(24, 24, 27, ${this.opacity})`;
+            ctx.fillStyle = color;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
@@ -111,8 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initParticles() {
         particles = [];
-        // Adjust count based on width
-        const count = window.innerWidth < 768 ? 30 : 80;
+        const count = window.innerWidth < 768 ? 50 : 150;
         for (let i = 0; i < count; i++) {
             particles.push(new Particle());
         }
@@ -121,44 +115,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function animate() {
         ctx.clearRect(0, 0, width, height);
 
-        // Update and Draw Particles
         for (let i = 0; i < particles.length; i++) {
             particles[i].update();
             particles[i].draw();
-
-            // Draw Connections
-            for (let j = i + 1; j < particles.length; j++) {
-                let dx = particles[i].x - particles[j].x;
-                let dy = particles[i].y - particles[j].y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < config.connectionDistance) {
-                    ctx.beginPath();
-                    // Opacity based on distance
-                    const opacity = 1 - (distance / config.connectionDistance);
-                    ctx.strokeStyle = isDark
-                        ? config.colors.dark.line.replace('0.1)', `${opacity * 0.15})`)
-                        : config.colors.light.line.replace('0.1)', `${opacity * 0.2})`);
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
-            }
         }
-        requestAnimationFrame(animate);
+
+        animationId = requestAnimationFrame(animate);
     }
 
     // Event Listeners
     window.addEventListener('resize', resize);
+
     container.addEventListener('mousemove', (e) => {
         const rect = container.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
+        mouse.x = (e.clientX - rect.left) / rect.width;
+        mouse.y = (e.clientY - rect.top) / rect.height;
     });
+
     container.addEventListener('mouseleave', () => {
-        mouse.x = null;
-        mouse.y = null;
+        // Smoothly return to center
+        mouse.x = 0.5;
+        mouse.y = 0.5;
     });
 
     // Start
