@@ -95,6 +95,27 @@
     pointer-events: none;
 }
 
+/* Living Gradient Animation */
+@media (prefers-reduced-motion: no-preference) {
+    .gluon-hero-abstract::before {
+        animation: gluon-breathe 15s ease-in-out infinite alternate;
+        will-change: background-position;
+    }
+}
+
+@keyframes gluon-breathe {
+    0% {
+        background-position: 
+            center top, center top,
+            0 0, 0 0;
+    }
+    100% {
+        background-position: 
+            center top, center top,
+            -40px 20px, 40px -20px;
+    }
+}
+
 .gluon-dark .gluon-hero-abstract {
     background-color: var(--color-zinc-900, #18181b);
 }
