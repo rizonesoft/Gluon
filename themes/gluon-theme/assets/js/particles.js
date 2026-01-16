@@ -31,13 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const config = {
         particleCount: window.innerWidth < 768 ? 60 : 150,
         anchorCount: window.innerWidth < 768 ? 3 : 7,
+        secondaryCount: window.innerWidth < 768 ? 5 : 15, // Gluon Green particles
         baseSpeed: prefersReducedMotion ? 0.05 : 0.15,
         parallaxFactor: prefersReducedMotion ? 10 : 30,
         connectionDistance: 150,
         mouseAttractionDistance: 200,
         rotationSpeed: prefersReducedMotion ? 0 : 0.0001,
         shootingStarInterval: 8000,
-        accentColor: 'rgba(8, 140, 219, ',
+        accentColor: 'rgba(8, 140, 219, ',     // Gluon Blue
+        secondaryColor: 'rgba(4, 217, 139, ',  // Gluon Green
     };
 
     // Pre-calculate squared distances (optimization)
@@ -123,9 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Add slow horizontal drift based on depth (orbit effect)
             this.baseX += this.z * 0.08;
 
-            // Wrap around horizontally (continuous drift)
+            // Wrap around horizontally (both edges)
             if (this.baseX > width + 10) {
                 this.baseX = -10;
+            } else if (this.baseX < -10) {
+                this.baseX = width + 10;
             }
 
             // Bounce on top/bottom only
@@ -180,6 +184,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Secondary Particle (Gluon Green, subtle)
+    class SecondaryParticle extends Particle {
+        constructor() {
+            super();
+            this.z = 0.5 + Math.random() * 0.5;
+            this.baseSize = 1.5 + Math.random() * 1.5;
+            this.hasGlow = true;
+        }
+
+        draw() {
+            ctx.shadowBlur = 6;
+            ctx.shadowColor = config.secondaryColor + '0.4)';
+            ctx.fillStyle = config.secondaryColor + this.opacity + ')';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+    }
+
     // Shooting Star
     class ShootingStar {
         constructor() {
@@ -220,14 +244,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    let secondaryParticles = [];
+
     function initParticles() {
         particles = [];
         anchorParticles = [];
+        secondaryParticles = [];
         for (let i = 0; i < config.particleCount; i++) {
             particles.push(new Particle());
         }
         for (let i = 0; i < config.anchorCount; i++) {
             anchorParticles.push(new AnchorParticle());
+        }
+        for (let i = 0; i < config.secondaryCount; i++) {
+            secondaryParticles.push(new SecondaryParticle());
         }
     }
 
@@ -261,8 +291,15 @@ document.addEventListener('DOMContentLoaded', () => {
             anchorParticles[i].draw();
         }
 
-        // Connection lines - BATCHED (optimization)
-        const allParticles = particles.concat(anchorParticles);
+        // Update and draw secondary particles (Gluon Green)
+        const secondaryLen = secondaryParticles.length;
+        for (let i = 0; i < secondaryLen; i++) {
+            secondaryParticles[i].update();
+            secondaryParticles[i].draw();
+        }
+
+        // Connection lines (faint)
+        const allParticles = particles.concat(anchorParticles).concat(secondaryParticles);
         const allLen = allParticles.length;
 
         // Batch dark mode lines
