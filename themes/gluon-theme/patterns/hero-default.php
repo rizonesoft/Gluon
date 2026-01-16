@@ -13,7 +13,8 @@
 
     <!-- wp:html -->
     <div class="gluon-particles-container"
-        style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></div>
+        style="position:absolute;top:0;left:0;width:100%;height:100%;max-width:none !important;z-index:0;pointer-events:none;">
+    </div>
     <!-- /wp:html -->
 
     <!-- wp:group {"style":{"position":{"type":"relative"}},"layout":{"type":"constrained","contentSize":"800px"}} -->
