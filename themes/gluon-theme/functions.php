@@ -24,6 +24,7 @@ define('GLUON_URI', get_template_directory_uri());
  * Include additional theme files
  */
 require_once GLUON_DIR . '/inc/icons.php';
+require_once GLUON_DIR . '/inc/settings.php';
 
 /**
  * Sets up theme defaults and registers support for various WordPress features.

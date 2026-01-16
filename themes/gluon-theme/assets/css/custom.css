@@ -13,6 +13,44 @@ main {
 }
 
 /* ==========================================================================
+   Logo Mode Switching
+   ========================================================================== */
+
+.gluon-logo-link {
+	display: inline-flex;
+	align-items: center;
+}
+
+.gluon-logo {
+	max-height: 40px;
+	width: auto;
+}
+
+/* Light mode: show light logo, hide dark logo */
+.gluon-logo-light {
+	display: block;
+}
+.gluon-logo-dark {
+	display: none;
+}
+
+/* Dark mode: show dark logo, hide light logo */
+.gluon-dark .gluon-logo-light {
+	display: none;
+}
+.gluon-dark .gluon-logo-dark {
+	display: block;
+}
+
+/* Site title fallback */
+.gluon-site-title {
+	font-size: 1.25rem;
+	font-weight: 700;
+	text-decoration: none;
+	color: var(--wp--preset--color--gluon-text-primary);
+}
+
+/* ==========================================================================
    Fix alignfull edge-to-edge on WordPress FSE themes
    ========================================================================== */
 
