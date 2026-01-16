@@ -131,15 +131,23 @@ document.addEventListener('DOMContentLoaded', () => {
             // Slow horizontal drift based on depth (orbit effect)
             this.baseX += this.z * config.driftSpeed;
 
-            // Wrap around horizontally (both edges)
-            if (this.baseX > width + 10) {
-                this.baseX = -10;
-            } else if (this.baseX < -10) {
-                this.baseX = width + 10;
+            // Wrap around horizontally (seamless)
+            if (this.baseX > width + 20) {
+                this.baseX = -20;
+                this.baseY = Math.random() * height; // Randomize Y on wrap
+            } else if (this.baseX < -20) {
+                this.baseX = width + 20;
+                this.baseY = Math.random() * height;
             }
 
-            // Bounce on top/bottom only
-            if (this.baseY < 0 || this.baseY > height) this.vy *= -1;
+            // Clamp and bounce on top/bottom
+            if (this.baseY < 0) {
+                this.baseY = 0;
+                this.vy = Math.abs(this.vy);
+            } else if (this.baseY > height) {
+                this.baseY = height;
+                this.vy = -Math.abs(this.vy);
+            }
 
             this.x = this.baseX;
             this.y = this.baseY;
