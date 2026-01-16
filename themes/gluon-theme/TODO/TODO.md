@@ -3,7 +3,11 @@
 > **Mission:** Make Gluon 1,000 lightyears ahead of all competition by incorporating the best features from Astra and Unibiz, enhanced with advanced AI automation via OpenRouter.
 
 > [!IMPORTANT]
-> **Design Philosophy:** Adopt **Unibiz's visual aesthetics** (layout, animations, business-focused patterns) while integrating **Astra's feature depth** (customizer options, integrations, performance). Avoid Unibiz's overused purple — use Rizone Blue.
+> **Design Philosophy:** Adopt **Unibiz's visual aesthetics** (layout, animations, business-focused patterns) while integrating **Astra's feature depth** (customizer options, integrations, performance). Use Gluon's signature color scheme:
+> - **Accent:** Gluon Blue (`#088CDB`)
+> - **Secondary:** Gluon Green (`#04D98B`)
+> - **Dark BG:** Zinc-900 (`#18181b`) / **Light BG:** Zinc-50 (`#fafafa`)
+> - **Mode:** Dark/Light toggle required
 
 ---
 
@@ -51,7 +55,8 @@
 ### 2.1 FSE Block Theme Conversion (from Astra/Unibiz research)
 - [ ] **Remove PHP templates** — Delete `header.php`, `footer.php`, `index.php`, etc.
 - [ ] **Create `theme.json` v3** — Full WordPress 6.9 schema with settings + styles
-- [ ] **Define 26-color palette** — Light + dark mode (like Unibiz, but Rizone Blue)
+- [ ] **Define color palette** — Accent Blue (`#088CDB`), Secondary Green (`#04D98B`), Zinc backgrounds
+- [ ] **Implement dark/light mode toggle** — Accessible switch in header, respects `prefers-color-scheme`
 - [ ] **Add 16 fluid font sizes** — Use `clamp()` like Unibiz
 - [ ] **Enable wide/full alignments** — Required for business layouts
 - [ ] **Configure spacing units** — px, em, rem, vh, vw, %
@@ -92,7 +97,7 @@
 ### 3.1 Design Token System
 - [ ] **Configure `@theme` block** — All colors, fonts, spacing in CSS variables
 - [ ] **Define `--gluon-*` custom properties** — Prefixed per WordPress.org standards
-- [ ] **Set up dark mode tokens** — `prefers-color-scheme` support
+- [ ] **Set up dark mode tokens** — Full dark palette with `prefers-color-scheme` and manual toggle override
 - [ ] **Create component tokens** — Buttons, cards, forms, navigation
 
 ### 3.2 Utility Classes
@@ -222,7 +227,7 @@
 
 ## Design Principles
 
-1. **Rizone Blue over Purple** — Differentiate from Unibiz's overused purple palette
+1. **Gluon Colors** — Accent `#088CDB` (Blue) + Secondary `#04D98B` (Green) + Zinc backgrounds, mandatory dark/light toggle
 2. **Utility over Flash** — Performance-first, animations as enhancement
 3. **AI as Superpower** — Not just a theme, an intelligent design assistant
 4. **CSS over Images** — Render backgrounds, patterns, effects in pure CSS

@@ -21,9 +21,12 @@
 
 | Feature | Astra | Unibiz | Gluon (Current) | Priority |
 |---------|:-----:|:------:|:---------------:|:--------:|
-| Primary Color | Blue (configurable) | Purple `#7722ff` | Rizone Blue oklch | ✅ Done |
-| CSS Variables | 9 `--ast-*` | 26 `--gv-*` | `--color-rizone-*` | ✅ Done |
-| Dark Mode Palette | ✅ Dynamic CSS | ✅ 13 dark colors | ❌ None | 🔴 High |
+| Accent Color | Blue (configurable) | Purple `#7722ff` | Gluon Blue `#088CDB` | ✅ Done |
+| Secondary Color | ❌ None | ❌ None | Gluon Green `#04D98B` | ✅ Done |
+| Dark Mode Surface | ✅ Dynamic | ✅ Custom | Zinc-900 `#18181b` | ✅ Done |
+| Light Mode Surface | ❌ White | ❌ White | Zinc-50 `#fafafa` | ✅ Done |
+| CSS Variables | 9 `--ast-*` | 26 `--gv-*` | `--gluon-*` | ✅ Done |
+| Dark/Light Toggle | ❌ No | ❌ No | ❌ None | 🔴 High |
 | Color Space | Hex | Hex | oklch | ✅ Done |
 
 ---

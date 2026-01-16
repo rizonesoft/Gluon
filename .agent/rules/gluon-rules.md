@@ -51,7 +51,8 @@ Do not verify nonces on the front end.
 # TAILWIND V4 WORKFLOW
 Use the CSS-first configuration method.
 Define colors in CSS variables inside `@theme`.
-Use `oklch` color space for "Rizone Blue" branding.
+Use `oklch` color space for Gluon brand colors.
+Implement dark/light mode toggle with `prefers-color-scheme` and manual override.
 Do not use `@apply` for layout structure.
 Use utility classes directly in HTML block templates.
 Enable container queries by default.
@@ -60,14 +61,18 @@ Use `outline-hidden` instead of `outline-none`.
 Use `shadow-xs` and `rounded-sm` for a "software" feel.
 
 # DESIGN SYSTEM (GLUON)
-Primary Color: Rizone Blue (`oklch(0.55 0.2 250)`).
-Secondary Color: System Slate (`oklch(0.20 0.05 260)`).
-Background: Off-White (`#f8fafc`) for readability.
+Accent Color: Gluon Blue (`#088CDB` / `oklch(0.60 0.15 230)`).
+Secondary Color: Gluon Green (`#04D98B` / `oklch(0.75 0.18 160)`).
+Light Mode Surface: Zinc-50 (`#fafafa`).
+Light Mode Elevated: Zinc-100 (`#f4f4f5`).
+Dark Mode Surface: Zinc-900 (`#18181b`).
+Dark Mode Elevated: Zinc-800 (`#27272a`).
 Typography: Native System Stack (`Inter`, `system-ui`).
 UI Elements: High contrast borders, minimal rounded corners (2px).
 Buttons: Solid colors, distinct hover states, no gradients.
 Icons: Lucide SVG sprites or inline SVGs.
-Feedback: Use distinct success/error colors (Green/Red).
+Feedback: Success uses Gluon Green; Error uses Red (`#ef4444`).
+Mode Toggle: Implement accessible dark/light mode switch in header.
 
 # ACCESSIBILITY (A11Y)
 Meet WCAG 2.1 AA standards strictly.
