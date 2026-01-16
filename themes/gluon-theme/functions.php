@@ -343,8 +343,3 @@ require GLUON_DIR . '/inc/template-functions.php';
  * Custom template tags.
  */
 require GLUON_DIR . '/inc/template-tags.php';
-
-/**
- * Lucide icon system.
- */
-require GLUON_DIR . '/inc/class-gluon-icons.php';
