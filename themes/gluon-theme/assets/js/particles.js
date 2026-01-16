@@ -268,6 +268,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     ctx.stroke();
                 }
             }
+
+            // Pulsating cursor particle (where lines converge)
+            const pulseSize = 4 + Math.sin(Date.now() / 200) * 2;
+            const pulseOpacity = 0.6 + Math.sin(Date.now() / 200) * 0.3;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = config.accentColor + '0.8)';
+            ctx.fillStyle = config.accentColor + pulseOpacity + ')';
+            ctx.beginPath();
+            ctx.arc(mouse.realX, mouse.realY, pulseSize, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
         }
 
         // Shooting stars
