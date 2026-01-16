@@ -12,9 +12,9 @@
     style="border-bottom-color:var(--wp--preset--color--gluon-border);border-bottom-width:1px;padding-top:clamp(6rem, 12vw, 10rem);padding-right:var(--wp--preset--spacing--40);padding-bottom:clamp(6rem, 12vw, 10rem);padding-left:var(--wp--preset--spacing--40)">
     <!-- wp:group {"layout":{"type":"constrained","contentSize":"800px"}} -->
     <div class="wp-block-group">
-        <!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontSize":"clamp(2.5rem, 5vw, 4.5rem)","fontWeight":"800","letterSpacing":"-0.03em","lineHeight":"1.1"}},"textColor":"gluon-text-primary"} -->
+        <!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontSize":"clamp(2.5rem, 5vw, 4.5rem)","fontWeight":"700","letterSpacing":"-0.02em","lineHeight":"1.1"}},"textColor":"gluon-text-primary"} -->
         <h1 class="wp-block-heading has-text-align-center has-gluon-text-primary-color has-text-color"
-            style="font-size:clamp(2.5rem, 5vw, 4.5rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1">
+            style="font-size:clamp(2.5rem, 5vw, 4.5rem);font-weight:700;letter-spacing:-0.02em;line-height:1.1">
             <?php esc_html_e('Build Faster, Ship Smarter', 'gluon'); ?>
         </h1>
         <!-- /wp:heading -->
@@ -28,18 +28,18 @@
 
         <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
         <div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--50)">
-            <!-- wp:button {"backgroundColor":"gluon-accent","textColor":"gluon-text-inverted","style":{"border":{"radius":"4px"},"typography":{"fontWeight":"600"},"spacing":{"padding":{"top":"1rem","bottom":"1rem","left":"2rem","right":"2rem"}}}} -->
+            <!-- wp:button {"backgroundColor":"gluon-accent","textColor":"gluon-text-inverted","style":{"border":{"radius":"4px"},"typography":{"fontWeight":"500"},"spacing":{"padding":{"top":"1rem","bottom":"1rem","left":"2rem","right":"2rem"}}}} -->
             <div class="wp-block-button"><a
                     class="wp-block-button__link has-gluon-text-inverted-color has-gluon-accent-background-color has-text-color has-background wp-element-button"
-                    style="border-radius:4px;font-weight:600;padding-top:1rem;padding-right:2rem;padding-bottom:1rem;padding-left:2rem">
+                    style="border-radius:4px;font-weight:500;padding-top:1rem;padding-right:2rem;padding-bottom:1rem;padding-left:2rem">
                     <?php esc_html_e('Get Started', 'gluon'); ?>
                 </a></div>
             <!-- /wp:button -->
 
-            <!-- wp:button {"className":"is-style-outline","style":{"border":{"radius":"4px","width":"1px"},"typography":{"fontWeight":"600"},"spacing":{"padding":{"top":"1rem","bottom":"1rem","left":"2rem","right":"2rem"}}},"textColor":"gluon-text-primary"} -->
+            <!-- wp:button {"className":"is-style-outline","style":{"border":{"radius":"4px","width":"1px"},"typography":{"fontWeight":"500"},"spacing":{"padding":{"top":"1rem","bottom":"1rem","left":"2rem","right":"2rem"}}},"textColor":"gluon-text-primary"} -->
             <div class="wp-block-button is-style-outline"><a
                     class="wp-block-button__link has-gluon-text-primary-color has-text-color wp-element-button"
-                    style="border-width:1px;border-radius:4px;font-weight:600;padding-top:1rem;padding-right:2rem;padding-bottom:1rem;padding-left:2rem">
+                    style="border-width:1px;border-radius:4px;font-weight:500;padding-top:1rem;padding-right:2rem;padding-bottom:1rem;padding-left:2rem">
                     <?php esc_html_e('Learn More', 'gluon'); ?>
                 </a></div>
             <!-- /wp:button -->
