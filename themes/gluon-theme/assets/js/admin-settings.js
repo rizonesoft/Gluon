@@ -11,6 +11,17 @@
     'use strict';
 
     $(document).ready(function () {
+        // Show toast if settings were saved
+        if (typeof gluonAdmin !== 'undefined' && gluonAdmin.settingsSaved) {
+            GluonToast.success(gluonAdmin.strings.saved, 'Gluon');
+
+            // Remove the query param from URL (clean up)
+            if (window.history.replaceState) {
+                var url = window.location.href.replace(/[?&]settings-updated=true/, '');
+                window.history.replaceState({}, '', url);
+            }
+        }
+
         // Handle upload button click
         $('.gluon-logo-upload').on('click', '.gluon-upload-button', function (e) {
             e.preventDefault();

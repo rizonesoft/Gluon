@@ -107,7 +107,7 @@ function gluon_sanitize_svg($file)
 add_filter('wp_handle_upload_prefilter', 'gluon_sanitize_svg');
 
 /**
- * Enqueue admin scripts for media uploader
+ * Enqueue admin scripts for media uploader and toast notifications
  */
 function gluon_admin_scripts($hook)
 {
@@ -116,6 +116,23 @@ function gluon_admin_scripts($hook)
     }
 
     wp_enqueue_media();
+
+    // Toast notifications
+    wp_enqueue_style(
+        'gluon-admin-toast',
+        GLUON_URI . '/assets/css/admin-toast.css',
+        array(),
+        GLUON_VERSION
+    );
+    wp_enqueue_script(
+        'gluon-admin-toast',
+        GLUON_URI . '/assets/js/admin-toast.js',
+        array(),
+        GLUON_VERSION,
+        true
+    );
+
+    // Settings page styles and scripts
     wp_enqueue_style(
         'gluon-admin-settings',
         GLUON_URI . '/assets/css/admin-settings.css',
@@ -125,10 +142,20 @@ function gluon_admin_scripts($hook)
     wp_enqueue_script(
         'gluon-admin-settings',
         GLUON_URI . '/assets/js/admin-settings.js',
-        array('jquery'),
+        array('jquery', 'gluon-admin-toast'),
         GLUON_VERSION,
         true
     );
+
+    // Pass settings saved status to JS
+    $settings_saved = isset($_GET['settings-updated']) && $_GET['settings-updated'] === 'true';
+    wp_localize_script('gluon-admin-settings', 'gluonAdmin', array(
+        'settingsSaved' => $settings_saved,
+        'strings' => array(
+            'saved' => __('Settings saved successfully!', 'gluon'),
+            'error' => __('An error occurred.', 'gluon'),
+        ),
+    ));
 }
 add_action('admin_enqueue_scripts', 'gluon_admin_scripts');
 

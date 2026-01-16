@@ -1,0 +1,146 @@
+/**
+ * Gluon Toast Notifications
+ *
+ * Modern, minimal toast notification system.
+ *
+ * @package Gluon_Theme
+ * @since 1.0.0
+ */
+
+/* Toast Container */
+.gluon-toast-container {
+    position: fixed;
+    top: 32px; /* Below WP admin bar */
+    right: 20px;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+}
+
+/* Individual Toast */
+.gluon-toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-left: 4px solid #088CDB;
+    animation: gluon-toast-slide-in 0.3s ease-out;
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.gluon-toast.gluon-toast-hiding {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+/* Toast Types */
+.gluon-toast--success {
+    border-left-color: #04D98B;
+}
+
+.gluon-toast--error {
+    border-left-color: #ef4444;
+}
+
+.gluon-toast--warning {
+    border-left-color: #f59e0b;
+}
+
+.gluon-toast--info {
+    border-left-color: #088CDB;
+}
+
+/* Toast Icon */
+.gluon-toast__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.gluon-toast--success .gluon-toast__icon {
+    color: #04D98B;
+}
+
+.gluon-toast--error .gluon-toast__icon {
+    color: #ef4444;
+}
+
+.gluon-toast--warning .gluon-toast__icon {
+    color: #f59e0b;
+}
+
+.gluon-toast--info .gluon-toast__icon {
+    color: #088CDB;
+}
+
+/* Toast Content */
+.gluon-toast__content {
+    flex: 1;
+}
+
+.gluon-toast__title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #18181b;
+    margin: 0 0 4px 0;
+}
+
+.gluon-toast__message {
+    font-size: 13px;
+    color: #71717a;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Toast Close Button */
+.gluon-toast__close {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #a1a1aa;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.gluon-toast__close:hover {
+    color: #18181b;
+}
+
+.gluon-toast__close svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Animation */
+@keyframes gluon-toast-slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* No admin bar (frontend or small screens) */
+@media screen and (max-width: 782px) {
+    .gluon-toast-container {
+        top: 46px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+
+body:not(.admin-bar) .gluon-toast-container {
+    top: 20px;
+}
