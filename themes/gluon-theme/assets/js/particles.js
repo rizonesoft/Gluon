@@ -259,10 +259,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < config.mouseAttractionDistance && allParticles[i].z > 0.4) {
-                    const opacity = (1 - distance / config.mouseAttractionDistance) * 0.2;
+                    const opacity = (1 - distance / config.mouseAttractionDistance) * 0.5;
                     ctx.beginPath();
                     ctx.strokeStyle = config.accentColor + opacity + ')';
-                    ctx.lineWidth = 0.5;
+                    ctx.lineWidth = 1;
                     ctx.moveTo(allParticles[i].x, allParticles[i].y);
                     ctx.lineTo(mouse.realX, mouse.realY);
                     ctx.stroke();
@@ -288,44 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         animationId = requestAnimationFrame(animate);
     }
-
-    // Click-to-burst
-    container.addEventListener('click', (e) => {
-        if (prefersReducedMotion) return;
-
-        const rect = container.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const clickY = e.clientY - rect.top;
-
-        // Scatter nearby particles
-        for (let i = 0; i < particles.length; i++) {
-            const dx = particles[i].x - clickX;
-            const dy = particles[i].y - clickY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 150) {
-                const force = (150 - distance) / 150;
-                particles[i].vx += (dx / distance) * force * 2;
-                particles[i].vy += (dy / distance) * force * 2;
-            }
-        }
-
-        // Spawn 5 new particles at click location
-        for (let i = 0; i < 5; i++) {
-            const p = new Particle();
-            p.baseX = clickX + (Math.random() - 0.5) * 50;
-            p.baseY = clickY + (Math.random() - 0.5) * 50;
-            p.z = 0.7 + Math.random() * 0.3;
-            p.vx = (Math.random() - 0.5) * 3;
-            p.vy = (Math.random() - 0.5) * 3;
-            particles.push(p);
-        }
-
-        // Keep particle count reasonable
-        while (particles.length > config.particleCount + 20) {
-            particles.shift();
-        }
-    });
 
     // Event Listeners
     window.addEventListener('resize', resize);
