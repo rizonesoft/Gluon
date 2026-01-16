@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         particleCount: window.innerWidth < 768 ? 60 : 150,
         baseSpeed: 0.15, // Very slow drift
         parallaxFactor: 30, // How much parallax shift
-        spawnRight: 0.3, // Spawn on right 70% of canvas
+        spawnRight: 0, // Spawn across entire width (0 = full, 0.3 = right 70%)
     };
 
     // State
@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Depth (0 = far, 1 = close)
             this.z = Math.random();
 
-            // Position (right-aligned)
-            this.baseX = width * config.spawnRight + Math.random() * width * (1 - config.spawnRight);
+            // Position (full width)
+            this.baseX = Math.random() * width;
             this.baseY = Math.random() * height;
             this.x = this.baseX;
             this.y = this.baseY;
@@ -81,9 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
             this.baseX += this.vx;
             this.baseY += this.vy;
 
-            // Constrain to right side
-            const leftBound = width * config.spawnRight;
-            if (this.baseX < leftBound) { this.baseX = leftBound; this.vx *= -1; }
+            // Constrain to canvas
+            if (this.baseX < 0) { this.baseX = 0; this.vx *= -1; }
             if (this.baseX > width) { this.vx *= -1; this.baseX = width; }
             if (this.baseY < 0 || this.baseY > height) this.vy *= -1;
 
