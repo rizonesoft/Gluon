@@ -5,6 +5,7 @@
  * Provides a dedicated admin page for theme settings including:
  * - Light mode logo
  * - Dark mode logo
+ * - SVG upload support toggle
  *
  * @package Gluon_Theme
  * @since 1.0.0
@@ -32,6 +33,7 @@ add_action('admin_menu', 'gluon_register_settings_page');
  */
 function gluon_register_settings()
 {
+    // Logo settings
     register_setting('gluon_settings_group', 'gluon_logo_light', array(
         'type' => 'integer',
         'sanitize_callback' => 'absint',
@@ -43,8 +45,59 @@ function gluon_register_settings()
         'sanitize_callback' => 'absint',
         'default' => 0,
     ));
+
+    // Advanced settings
+    register_setting('gluon_settings_group', 'gluon_enable_svg', array(
+        'type' => 'boolean',
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'default' => false,
+    ));
 }
 add_action('admin_init', 'gluon_register_settings');
+
+/**
+ * Enable SVG upload if setting is enabled
+ */
+function gluon_enable_svg_upload($mimes)
+{
+    if (get_option('gluon_enable_svg', false)) {
+        $mimes['svg'] = 'image/svg+xml';
+        $mimes['svgz'] = 'image/svg+xml';
+    }
+    return $mimes;
+}
+add_filter('upload_mimes', 'gluon_enable_svg_upload');
+
+/**
+ * Sanitize SVG on upload
+ */
+function gluon_sanitize_svg($file)
+{
+    if (!get_option('gluon_enable_svg', false)) {
+        return $file;
+    }
+
+    if ($file['type'] === 'image/svg+xml') {
+        // Basic SVG sanitization
+        $svg_content = file_get_contents($file['tmp_name']);
+
+        // Remove potentially dangerous elements
+        $dangerous = array(
+            '/<script\b[^>]*>(.*?)<\/script>/is',
+            '/on\w+="[^"]*"/i',
+            '/on\w+=\'[^\']*\'/i',
+            '/<foreignObject\b[^>]*>(.*?)<\/foreignObject>/is',
+        );
+
+        $svg_content = preg_replace($dangerous, '', $svg_content);
+
+        // Write sanitized content back
+        file_put_contents($file['tmp_name'], $svg_content);
+    }
+
+    return $file;
+}
+add_filter('wp_handle_upload_prefilter', 'gluon_sanitize_svg');
 
 /**
  * Enqueue admin scripts for media uploader
@@ -85,87 +138,121 @@ function gluon_settings_page_html()
     $logo_dark_id = get_option('gluon_logo_dark', 0);
     $logo_light_url = $logo_light_id ? wp_get_attachment_image_url($logo_light_id, 'medium') : '';
     $logo_dark_url = $logo_dark_id ? wp_get_attachment_image_url($logo_dark_id, 'medium') : '';
+    $svg_enabled = get_option('gluon_enable_svg', false);
+
+    $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'general';
     ?>
-    <div class="wrap gluon-settings-wrap">
-        <h1>
-            <?php echo esc_html(get_admin_page_title()); ?>
-        </h1>
+        <div class="wrap gluon-settings-wrap">
+            <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 
-        <?php settings_errors('gluon_settings'); ?>
+            <?php settings_errors('gluon_settings'); ?>
 
-        <form method="post" action="options.php">
-            <?php settings_fields('gluon_settings_group'); ?>
+            <nav class="nav-tab-wrapper gluon-tabs">
+                <a href="?page=gluon-settings&tab=general"
+                    class="nav-tab <?php echo $active_tab === 'general' ? 'nav-tab-active' : ''; ?>">
+                    <?php esc_html_e('General', 'gluon'); ?>
+                </a>
+                <a href="?page=gluon-settings&tab=advanced"
+                    class="nav-tab <?php echo $active_tab === 'advanced' ? 'nav-tab-active' : ''; ?>">
+                    <?php esc_html_e('Advanced', 'gluon'); ?>
+                </a>
+            </nav>
 
-            <div class="gluon-settings-section">
-                <h2>
-                    <?php esc_html_e('Site Logos', 'gluon'); ?>
-                </h2>
-                <p class="description">
-                    <?php esc_html_e('Upload separate logos for light and dark modes. The appropriate logo will display based on the current theme mode.', 'gluon'); ?>
-                </p>
+            <form method="post" action="options.php">
+                <?php settings_fields('gluon_settings_group'); ?>
 
-                <table class="form-table" role="presentation">
-                    <tr>
-                        <th scope="row">
-                            <label for="gluon_logo_light">
-                                <?php esc_html_e('Light Mode Logo', 'gluon'); ?>
-                            </label>
-                        </th>
-                        <td>
-                            <div class="gluon-logo-upload" data-target="gluon_logo_light">
-                                <input type="hidden" name="gluon_logo_light" id="gluon_logo_light"
-                                    value="<?php echo esc_attr($logo_light_id); ?>">
-                                <div class="gluon-logo-preview" id="gluon_logo_light_preview">
-                                    <?php if ($logo_light_url): ?>
-                                        <img src="<?php echo esc_url($logo_light_url); ?>" alt="">
-                                    <?php endif; ?>
-                                </div>
-                                <button type="button" class="button gluon-upload-button">
-                                    <?php esc_html_e('Select Logo', 'gluon'); ?>
-                                </button>
-                                <button type="button" class="button gluon-remove-button" <?php echo $logo_light_id ? '' : 'style="display:none;"'; ?>>
-                                    <?php esc_html_e('Remove', 'gluon'); ?>
-                                </button>
-                            </div>
+                <?php if ($active_tab === 'general'): ?>
+                        <!-- General Tab -->
+                        <div class="gluon-settings-section">
+                            <h2><?php esc_html_e('Site Logos', 'gluon'); ?></h2>
                             <p class="description">
-                                <?php esc_html_e('This logo displays on light backgrounds.', 'gluon'); ?>
+                                <?php esc_html_e('Upload separate logos for light and dark modes. The appropriate logo will display based on the current theme mode.', 'gluon'); ?>
                             </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">
-                            <label for="gluon_logo_dark">
-                                <?php esc_html_e('Dark Mode Logo', 'gluon'); ?>
-                            </label>
-                        </th>
-                        <td>
-                            <div class="gluon-logo-upload" data-target="gluon_logo_dark">
-                                <input type="hidden" name="gluon_logo_dark" id="gluon_logo_dark"
-                                    value="<?php echo esc_attr($logo_dark_id); ?>">
-                                <div class="gluon-logo-preview" id="gluon_logo_dark_preview">
-                                    <?php if ($logo_dark_url): ?>
-                                        <img src="<?php echo esc_url($logo_dark_url); ?>" alt="">
-                                    <?php endif; ?>
-                                </div>
-                                <button type="button" class="button gluon-upload-button">
-                                    <?php esc_html_e('Select Logo', 'gluon'); ?>
-                                </button>
-                                <button type="button" class="button gluon-remove-button" <?php echo $logo_dark_id ? '' : 'style="display:none;"'; ?>>
-                                    <?php esc_html_e('Remove', 'gluon'); ?>
-                                </button>
-                            </div>
-                            <p class="description">
-                                <?php esc_html_e('This logo displays on dark backgrounds.', 'gluon'); ?>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
 
-            <?php submit_button(__('Save Settings', 'gluon')); ?>
-        </form>
-    </div>
-    <?php
+                            <table class="form-table" role="presentation">
+                                <tr>
+                                    <th scope="row">
+                                        <label for="gluon_logo_light"><?php esc_html_e('Light Mode Logo', 'gluon'); ?></label>
+                                    </th>
+                                    <td>
+                                        <div class="gluon-logo-upload" data-target="gluon_logo_light">
+                                            <input type="hidden" name="gluon_logo_light" id="gluon_logo_light"
+                                                value="<?php echo esc_attr($logo_light_id); ?>">
+                                            <div class="gluon-logo-preview" id="gluon_logo_light_preview">
+                                                <?php if ($logo_light_url): ?>
+                                                        <img src="<?php echo esc_url($logo_light_url); ?>" alt="">
+                                                <?php endif; ?>
+                                            </div>
+                                            <button type="button" class="button gluon-upload-button">
+                                                <?php esc_html_e('Select Logo', 'gluon'); ?>
+                                            </button>
+                                            <button type="button" class="button gluon-remove-button"
+                                                <?php echo $logo_light_id ? '' : 'style="display:none;"'; ?>>
+                                                <?php esc_html_e('Remove', 'gluon'); ?>
+                                            </button>
+                                        </div>
+                                        <p class="description"><?php esc_html_e('This logo displays on light backgrounds.', 'gluon'); ?></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <label for="gluon_logo_dark"><?php esc_html_e('Dark Mode Logo', 'gluon'); ?></label>
+                                    </th>
+                                    <td>
+                                        <div class="gluon-logo-upload" data-target="gluon_logo_dark">
+                                            <input type="hidden" name="gluon_logo_dark" id="gluon_logo_dark"
+                                                value="<?php echo esc_attr($logo_dark_id); ?>">
+                                            <div class="gluon-logo-preview" id="gluon_logo_dark_preview">
+                                                <?php if ($logo_dark_url): ?>
+                                                        <img src="<?php echo esc_url($logo_dark_url); ?>" alt="">
+                                                <?php endif; ?>
+                                            </div>
+                                            <button type="button" class="button gluon-upload-button">
+                                                <?php esc_html_e('Select Logo', 'gluon'); ?>
+                                            </button>
+                                            <button type="button" class="button gluon-remove-button"
+                                                <?php echo $logo_dark_id ? '' : 'style="display:none;"'; ?>>
+                                                <?php esc_html_e('Remove', 'gluon'); ?>
+                                            </button>
+                                        </div>
+                                        <p class="description"><?php esc_html_e('This logo displays on dark backgrounds.', 'gluon'); ?></p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                <?php elseif ($active_tab === 'advanced'): ?>
+                        <!-- Advanced Tab -->
+                        <div class="gluon-settings-section">
+                            <h2><?php esc_html_e('Media Settings', 'gluon'); ?></h2>
+
+                            <table class="form-table" role="presentation">
+                                <tr>
+                                    <th scope="row"><?php esc_html_e('SVG Upload Support', 'gluon'); ?></th>
+                                    <td>
+                                        <label for="gluon_enable_svg">
+                                            <input type="checkbox" name="gluon_enable_svg" id="gluon_enable_svg" value="1"
+                                                <?php checked($svg_enabled); ?>>
+                                            <?php esc_html_e('Enable SVG file uploads', 'gluon'); ?>
+                                        </label>
+                                        <p class="description">
+                                            <?php esc_html_e('Allow SVG files to be uploaded to the Media Library. SVG files are sanitized on upload to remove potentially harmful code.', 'gluon'); ?>
+                                        </p>
+                                        <p class="description" style="color: #d63638;">
+                                            <strong><?php esc_html_e('Security Note:', 'gluon'); ?></strong>
+                                            <?php esc_html_e('Only enable this if you trust all users with upload permissions. SVG files can contain malicious code.', 'gluon'); ?>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                <?php endif; ?>
+
+                <?php submit_button(__('Save Settings', 'gluon')); ?>
+            </form>
+        </div>
+        <?php
 }
 
 /**
