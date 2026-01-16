@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         driftSpeed: prefersReducedMotion ? 0 : 0.03,       // Slower orbit drift
         parallaxFactor: prefersReducedMotion ? 10 : 30,
         connectionDistance: 120,                           // Slightly shorter
-        connectionOpacity: 0.08,                           // Much fainter
+        connectionOpacity: 0.2,                            // Visible tech lines
         mouseAttractionDistance: 200,
         rotationSpeed: prefersReducedMotion ? 0 : 0.0001,
         shootingStarInterval: 10000,                       // Less frequent
