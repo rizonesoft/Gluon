@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         particleCount: isMobile ? 30 : 100,        // Reduced from 60/150
         anchorCount: isMobile ? 2 : 5,             // Reduced from 3/7
         baseSpeed: 0.1,
-        connectionDistance: isMobile ? 80 : 120,  // Reduced from 150
+        connectionDistance: isMobile ? 100 : 150,  // Increased back for more lines
         connectionMinDepth: 0.4,                   // Skip more particles
         mouseAttractionDistance: isMobile ? 100 : 150,
         rotationSpeed: isMobile ? 0 : 0.00005,     // Slower rotation
@@ -191,10 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const dx = allParticles[i].x - allParticles[j].x;
                 const dy = allParticles[i].y - allParticles[j].y;
-
-                // Quick distance check (avoid sqrt for far particles)
-                if (Math.abs(dx) > config.connectionDistance || Math.abs(dy) > config.connectionDistance) continue;
-
                 const distSq = dx * dx + dy * dy;
                 const maxDistSq = config.connectionDistance * config.connectionDistance;
 
