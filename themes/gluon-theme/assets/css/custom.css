@@ -1,8 +1,79 @@
 /**
  * Gluon Theme - Custom Styles
  *
+ * Additional styles to override WordPress defaults
+ *
  * @package Gluon_Theme
  * @since 1.0.0
  */
 
-/* Additional custom styles go here */
+/* ==========================================================================
+   Fix alignfull edge-to-edge on WordPress FSE themes
+   ========================================================================== */
+
+/* Ensure alignfull elements extend past container padding */
+.wp-site-blocks > .alignfull,
+.wp-block-group.alignfull,
+.alignfull {
+	width: 100vw !important;
+	max-width: 100vw !important;
+	margin-left: calc(-50vw + 50%) !important;
+	margin-right: calc(-50vw + 50%) !important;
+}
+
+/* Fix for nested alignfull within constrained containers */
+.has-global-padding > .alignfull {
+	margin-left: calc(-1 * var(--wp--style--root--padding-right, 1rem)) !important;
+	margin-right: calc(-1 * var(--wp--style--root--padding-left, 1rem)) !important;
+	width: calc(100% + var(--wp--style--root--padding-right, 1rem) + var(--wp--style--root--padding-left, 1rem)) !important;
+	max-width: none !important;
+}
+
+/* ==========================================================================
+   Typography Enhancements
+   ========================================================================== */
+
+/* Tighter letter spacing on headings */
+h1, h2 {
+	letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   Button Hover States
+   ========================================================================== */
+
+.wp-block-button__link:hover {
+	transform: translateY(-1px);
+	transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+/* Outline button border on dark backgrounds */
+.is-style-outline .wp-block-button__link {
+	border-width: 2px !important;
+}
+
+/* ==========================================================================
+   Card-like Post Items
+   ========================================================================== */
+
+.wp-block-post {
+	transition: box-shadow 0.2s ease;
+}
+
+.wp-block-post:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   Dark Mode Overrides
+   ========================================================================== */
+
+.gluon-dark .wp-block-navigation a,
+.gluon-dark .wp-block-site-title a {
+	color: #fafafa;
+}
+
+.gluon-dark .wp-block-navigation a:hover,
+.gluon-dark .wp-block-site-title a:hover {
+	color: #088CDB;
+}

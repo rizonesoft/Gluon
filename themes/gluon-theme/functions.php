@@ -243,6 +243,14 @@ function gluon_scripts()
         GLUON_VERSION
     );
 
+    // Enqueue custom overrides (must be last)
+    wp_enqueue_style(
+        'gluon-custom',
+        GLUON_URI . '/assets/css/custom.css',
+        array('gluon-style', 'gluon-backgrounds'),
+        GLUON_VERSION
+    );
+
     // Enqueue theme toggle script
     wp_enqueue_script(
         'gluon-theme-toggle',
