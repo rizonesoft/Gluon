@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let rotation = 0;
     let animationId;
     let resizeTimeout;
-    let orbitPhase = 0; // For horizontal orbit effect
 
     // Configuration
     const config = {
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         parallaxFactor: prefersReducedMotion ? 10 : 30,
         connectionDistance: 150,
         mouseAttractionDistance: 200,
-        orbitSpeed: prefersReducedMotion ? 0 : 0.0003, // Slow horizontal orbit
+        rotationSpeed: prefersReducedMotion ? 0 : 0.0001,
         shootingStarInterval: 8000,
         accentColor: 'rgba(8, 140, 219, ',
     };
@@ -116,14 +115,12 @@ document.addEventListener('DOMContentLoaded', () => {
             this.hasGlow = this.z > 0.8;
         }
 
-        update(orbitOffset) {
+        update() {
             this.baseX += this.vx;
             this.baseY += this.vy;
             if (this.baseX < 0 || this.baseX > width) this.vx *= -1;
             if (this.baseY < 0 || this.baseY > height) this.vy *= -1;
-
-            // Apply horizontal orbit offset (depth-based)
-            this.x = this.baseX + orbitOffset * this.z;
+            this.x = this.baseX;
             this.y = this.baseY;
         }
 
@@ -230,23 +227,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function animate(timestamp) {
         ctx.clearRect(0, 0, width, height);
 
-        // Calculate horizontal orbit offset (sinusoidal for smooth back-and-forth)
+        // Global rotation
         if (!prefersReducedMotion) {
-            orbitPhase += config.orbitSpeed;
+            rotation += config.rotationSpeed;
+            ctx.save();
+            ctx.translate(width / 2, height / 2);
+            ctx.rotate(rotation);
+            ctx.translate(-width / 2, -height / 2);
         }
-        const orbitOffset = Math.sin(orbitPhase) * 50; // 50px max horizontal shift
 
         // Update and draw particles
         const len = particles.length;
         for (let i = 0; i < len; i++) {
-            particles[i].update(orbitOffset);
+            particles[i].update();
             particles[i].draw();
         }
 
         // Update and draw anchor particles
         const anchorLen = anchorParticles.length;
         for (let i = 0; i < anchorLen; i++) {
-            anchorParticles[i].update(orbitOffset);
+            anchorParticles[i].update();
             anchorParticles[i].draw();
         }
 
@@ -325,6 +325,10 @@ document.addEventListener('DOMContentLoaded', () => {
             star.draw();
             return !star.isDead();
         });
+
+        if (!prefersReducedMotion) {
+            ctx.restore();
+        }
 
         animationId = requestAnimationFrame(animate);
     }
