@@ -90,11 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.baseX < 0 || this.baseX > width) this.vx *= -1;
             if (this.baseY < 0 || this.baseY > height) this.vy *= -1;
 
-            const parallaxX = (mouse.x - 0.5) * config.parallaxFactor * this.z;
-            const parallaxY = (mouse.y - 0.5) * config.parallaxFactor * this.z;
-
-            this.x = this.baseX + parallaxX;
-            this.y = this.baseY + parallaxY;
+            // No parallax - just use base position
+            this.x = this.baseX;
+            this.y = this.baseY;
         }
 
         draw() {
