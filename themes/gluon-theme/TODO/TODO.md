@@ -74,18 +74,18 @@
 
 ### 2.3 Template Parts (from Astra/Unibiz)
 - [x] **Create `parts/header.html`** — Main header with nav and dark mode toggle
-- [ ] **Create `parts/header-transparent.html`** — Overlay header variation
+- [x] **Create `parts/header-transparent.html`** — Overlay header variation
 - [x] **Create `parts/footer.html`** — Main footer with widgets/social
-- [ ] **Create `parts/footer-minimal.html`** — Simple copyright bar
-- [ ] **Create `parts/sidebar.html`** — Widget sidebar
+- [x] **Create `parts/footer-minimal.html`** — Simple copyright bar
+- [x] **Create `parts/sidebar.html`** — Widget sidebar
 
-### 2.3 Block Patterns Library
-- [ ] **Hero sections** — Full-width, split, video background, animated
-- [ ] **Feature grids** — 2/3/4 column with icons, images, or stats
+### 2.4 Block Patterns Library
+- [x] **Hero sections** — Default hero with CTA buttons
+- [x] **Feature grids** — 3-column with icons
 - [ ] **Testimonials** — Carousel, grid, single featured
 - [ ] **Team members** — Grid, carousel, with social links
 - [ ] **Pricing tables** — Comparison, tiered, toggle monthly/annual
-- [ ] **Call-to-action** — Banner, inline, floating
+- [x] **Call-to-action** — Accent background banner
 - [ ] **Contact sections** — Form, map, info cards
 - [ ] **FAQ/Accordion** — Native WordPress 6.9 accordion block styling
 - [ ] **Portfolio/Gallery** — Masonry, filterable, lightbox

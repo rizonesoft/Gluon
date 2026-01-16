@@ -126,6 +126,37 @@ function gluon_setup()
 add_action('after_setup_theme', 'gluon_setup');
 
 /**
+ * Register block pattern categories.
+ *
+ * @since 1.0.0
+ * @return void
+ */
+function gluon_register_pattern_categories()
+{
+    register_block_pattern_category(
+        'gluon-heroes',
+        array(
+            'label' => esc_html__('Gluon Heroes', 'gluon'),
+        )
+    );
+
+    register_block_pattern_category(
+        'gluon-features',
+        array(
+            'label' => esc_html__('Gluon Features', 'gluon'),
+        )
+    );
+
+    register_block_pattern_category(
+        'gluon-cta',
+        array(
+            'label' => esc_html__('Gluon Call to Action', 'gluon'),
+        )
+    );
+}
+add_action('init', 'gluon_register_pattern_categories');
+
+/**
  * Enqueue scripts and styles.
  *
  * @since 1.0.0
