@@ -119,6 +119,34 @@ document.addEventListener('DOMContentLoaded', () => {
             particles[i].draw();
         }
 
+        // Strategic Connection Lines (only between "close" particles)
+        const connectionDistance = 100;
+        const minDepth = 0.5; // Only connect particles with z > 0.5
+
+        for (let i = 0; i < particles.length; i++) {
+            if (particles[i].z < minDepth) continue; // Skip far particles
+
+            for (let j = i + 1; j < particles.length; j++) {
+                if (particles[j].z < minDepth) continue;
+
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < connectionDistance) {
+                    const opacity = (1 - distance / connectionDistance) * 0.3;
+                    ctx.beginPath();
+                    ctx.strokeStyle = isDark
+                        ? `rgba(250, 250, 250, ${opacity})`
+                        : `rgba(24, 24, 27, ${opacity})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
         animationId = requestAnimationFrame(animate);
     }
 
