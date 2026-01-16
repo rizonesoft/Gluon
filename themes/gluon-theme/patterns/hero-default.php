@@ -9,10 +9,10 @@
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"clamp(6rem, 12vw, 10rem)","bottom":"clamp(6rem, 12vw, 10rem)","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}},"border":{"bottom":{"color":"var:preset|color|gluon-border","width":"1px"}}},"backgroundColor":"gluon-surface-light","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull has-gluon-surface-light-background-color has-background"
-    style="border-bottom-color:var(--wp--preset--color--gluon-border);border-bottom-width:1px;padding-top:clamp(6rem, 12vw, 10rem);padding-right:var(--wp--preset--spacing--40);padding-bottom:clamp(6rem, 12vw, 10rem);padding-left:var(--wp--preset--spacing--40);position:relative;overflow:hidden">
+    style="border-bottom-color:var(--wp--preset--color--gluon-border);border-bottom-width:1px;padding-top:clamp(6rem, 12vw, 10rem);padding-right:var(--wp--preset--spacing--40);padding-bottom:clamp(6rem, 12vw, 10rem);padding-left:var(--wp--preset--spacing--40)">
 
-    <!-- wp:group {"style":{"position":{"type":"relative"}},"layout":{"type":"constrained","contentSize":"800px"}} -->
-    <div class="wp-block-group" style="position:relative;z-index:1">
+    <!-- wp:group {"layout":{"type":"constrained","contentSize":"800px"}} -->
+    <div class="wp-block-group">
         <!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontSize":"clamp(2.5rem, 5vw, 4.5rem)","fontWeight":"700","letterSpacing":"-0.02em","lineHeight":"1.1"}},"textColor":"gluon-text-primary"} -->
         <h1 class="wp-block-heading has-text-align-center has-gluon-text-primary-color has-text-color"
             style="font-size:clamp(2.5rem, 5vw, 4.5rem);font-weight:700;letter-spacing:-0.02em;line-height:1.1">
