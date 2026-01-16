@@ -1,0 +1,439 @@
+/**
+ * Gluon Theme - CSS-Rendered Backgrounds
+ * 
+ * Gradient patterns, geometric patterns, animations, and effects
+ * Following Gluon design system: utilitarian, precise, performant
+ * 
+ * @package Gluon
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   Gradient Patterns
+   ========================================================================== */
+
+/* Subtle mesh gradient - hero sections */
+.gluon-gradient-mesh {
+	background: 
+		radial-gradient(
+			ellipse 80% 50% at 20% 40%,
+			oklch(0.60 0.15 230 / 0.15) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			ellipse 60% 40% at 80% 60%,
+			oklch(0.75 0.18 160 / 0.1) 0%,
+			transparent 50%
+		),
+		var(--color-zinc-50, #fafafa);
+}
+
+.gluon-dark .gluon-gradient-mesh {
+	background: 
+		radial-gradient(
+			ellipse 80% 50% at 20% 40%,
+			oklch(0.60 0.15 230 / 0.2) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			ellipse 60% 40% at 80% 60%,
+			oklch(0.75 0.18 160 / 0.15) 0%,
+			transparent 50%
+		),
+		var(--color-zinc-900, #18181b);
+}
+
+/* Radial glow - accent highlight */
+.gluon-gradient-glow {
+	background: 
+		radial-gradient(
+			circle at 50% 0%,
+			oklch(0.60 0.15 230 / 0.2) 0%,
+			transparent 50%
+		),
+		var(--color-zinc-50, #fafafa);
+}
+
+.gluon-dark .gluon-gradient-glow {
+	background: 
+		radial-gradient(
+			circle at 50% 0%,
+			oklch(0.60 0.15 230 / 0.25) 0%,
+			transparent 50%
+		),
+		var(--color-zinc-900, #18181b);
+}
+
+/* Subtle diagonal gradient */
+.gluon-gradient-diagonal {
+	background: linear-gradient(
+		135deg,
+		var(--color-zinc-50, #fafafa) 0%,
+		var(--color-zinc-100, #f4f4f5) 100%
+	);
+}
+
+.gluon-dark .gluon-gradient-diagonal {
+	background: linear-gradient(
+		135deg,
+		var(--color-zinc-900, #18181b) 0%,
+		var(--color-zinc-800, #27272a) 100%
+	);
+}
+
+/* Accent gradient - buttons, highlights */
+.gluon-gradient-accent {
+	background: linear-gradient(
+		135deg,
+		oklch(0.60 0.15 230) 0%,
+		oklch(0.52 0.14 230) 100%
+	);
+}
+
+/* Success gradient */
+.gluon-gradient-success {
+	background: linear-gradient(
+		135deg,
+		oklch(0.75 0.18 160) 0%,
+		oklch(0.65 0.16 160) 100%
+	);
+}
+
+/* ==========================================================================
+   Geometric Patterns
+   ========================================================================== */
+
+/* Dot grid pattern */
+.gluon-pattern-dots {
+	background-image: radial-gradient(
+		circle,
+		var(--color-zinc-300, #d4d4d8) 1px,
+		transparent 1px
+	);
+	background-size: 24px 24px;
+}
+
+.gluon-dark .gluon-pattern-dots {
+	background-image: radial-gradient(
+		circle,
+		var(--color-zinc-700, #3f3f46) 1px,
+		transparent 1px
+	);
+	background-size: 24px 24px;
+}
+
+/* Grid lines pattern */
+.gluon-pattern-grid {
+	background-image: 
+		linear-gradient(
+			to right,
+			var(--color-zinc-200, #e4e4e7) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			to bottom,
+			var(--color-zinc-200, #e4e4e7) 1px,
+			transparent 1px
+		);
+	background-size: 40px 40px;
+}
+
+.gluon-dark .gluon-pattern-grid {
+	background-image: 
+		linear-gradient(
+			to right,
+			var(--color-zinc-800, #27272a) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			to bottom,
+			var(--color-zinc-800, #27272a) 1px,
+			transparent 1px
+		);
+	background-size: 40px 40px;
+}
+
+/* Diagonal lines pattern */
+.gluon-pattern-lines {
+	background-image: repeating-linear-gradient(
+		45deg,
+		transparent,
+		transparent 8px,
+		var(--color-zinc-200, #e4e4e7) 8px,
+		var(--color-zinc-200, #e4e4e7) 9px
+	);
+}
+
+.gluon-dark .gluon-pattern-lines {
+	background-image: repeating-linear-gradient(
+		45deg,
+		transparent,
+		transparent 8px,
+		var(--color-zinc-800, #27272a) 8px,
+		var(--color-zinc-800, #27272a) 9px
+	);
+}
+
+/* Cross pattern */
+.gluon-pattern-cross {
+	background-image: 
+		linear-gradient(
+			var(--color-zinc-200, #e4e4e7) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			90deg,
+			var(--color-zinc-200, #e4e4e7) 1px,
+			transparent 1px
+		);
+	background-size: 20px 20px;
+	background-position: center center;
+}
+
+.gluon-dark .gluon-pattern-cross {
+	background-image: 
+		linear-gradient(
+			var(--color-zinc-700, #3f3f46) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			90deg,
+			var(--color-zinc-700, #3f3f46) 1px,
+			transparent 1px
+		);
+	background-size: 20px 20px;
+}
+
+/* ==========================================================================
+   Animated Backgrounds
+   ========================================================================== */
+
+/* Subtle floating gradient animation */
+@keyframes gluon-float {
+	0%, 100% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+}
+
+.gluon-bg-animated {
+	background: linear-gradient(
+		-45deg,
+		var(--color-zinc-50, #fafafa),
+		var(--color-zinc-100, #f4f4f5),
+		oklch(0.97 0.02 230),
+		var(--color-zinc-50, #fafafa)
+	);
+	background-size: 400% 400%;
+	animation: gluon-float 15s ease infinite;
+}
+
+.gluon-dark .gluon-bg-animated {
+	background: linear-gradient(
+		-45deg,
+		var(--color-zinc-900, #18181b),
+		var(--color-zinc-800, #27272a),
+		oklch(0.25 0.05 230),
+		var(--color-zinc-900, #18181b)
+	);
+	background-size: 400% 400%;
+}
+
+/* Pulse glow animation */
+@keyframes gluon-pulse-glow {
+	0%, 100% {
+		opacity: 0.5;
+	}
+	50% {
+		opacity: 0.8;
+	}
+}
+
+.gluon-glow-pulse {
+	position: relative;
+}
+
+.gluon-glow-pulse::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(
+		circle at 50% 50%,
+		oklch(0.60 0.15 230 / 0.15) 0%,
+		transparent 70%
+	);
+	animation: gluon-pulse-glow 4s ease-in-out infinite;
+	pointer-events: none;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+	.gluon-bg-animated,
+	.gluon-glow-pulse::before {
+		animation: none;
+	}
+}
+
+/* ==========================================================================
+   Glassmorphism Effects
+   ========================================================================== */
+
+/* Glass card effect */
+.gluon-glass {
+	background: rgba(255, 255, 255, 0.7);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.gluon-dark .gluon-glass {
+	background: rgba(24, 24, 27, 0.7);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glass subtle - less blur */
+.gluon-glass-subtle {
+	background: rgba(255, 255, 255, 0.5);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.gluon-dark .gluon-glass-subtle {
+	background: rgba(24, 24, 27, 0.5);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Glass heavy - more blur for modals */
+.gluon-glass-heavy {
+	background: rgba(255, 255, 255, 0.85);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.gluon-dark .gluon-glass-heavy {
+	background: rgba(24, 24, 27, 0.85);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Glass accent tint */
+.gluon-glass-accent {
+	background: oklch(0.60 0.15 230 / 0.1);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid oklch(0.60 0.15 230 / 0.2);
+}
+
+/* ==========================================================================
+   Noise/Grain Textures
+   ========================================================================== */
+
+/* SVG noise texture overlay */
+.gluon-noise {
+	position: relative;
+}
+
+.gluon-noise::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+	opacity: 0.03;
+	pointer-events: none;
+	mix-blend-mode: overlay;
+}
+
+.gluon-dark .gluon-noise::after {
+	opacity: 0.05;
+}
+
+/* Film grain effect */
+.gluon-grain {
+	position: relative;
+}
+
+.gluon-grain::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.65' numOctaves='3' seed='15' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+	opacity: 0.02;
+	pointer-events: none;
+}
+
+.gluon-dark .gluon-grain::after {
+	opacity: 0.04;
+}
+
+/* ==========================================================================
+   Utility Combinations
+   ========================================================================== */
+
+/* Hero background - gradient + dots + noise */
+.gluon-hero-bg {
+	background: 
+		radial-gradient(
+			ellipse 80% 50% at 20% 40%,
+			oklch(0.60 0.15 230 / 0.1) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			circle,
+			var(--color-zinc-300, #d4d4d8) 1px,
+			transparent 1px
+		),
+		var(--color-zinc-50, #fafafa);
+	background-size: 100% 100%, 24px 24px, 100% 100%;
+}
+
+.gluon-dark .gluon-hero-bg {
+	background: 
+		radial-gradient(
+			ellipse 80% 50% at 20% 40%,
+			oklch(0.60 0.15 230 / 0.15) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			circle,
+			var(--color-zinc-700, #3f3f46) 1px,
+			transparent 1px
+		),
+		var(--color-zinc-900, #18181b);
+	background-size: 100% 100%, 24px 24px, 100% 100%;
+}
+
+/* Section divider - gradient fade */
+.gluon-section-fade-top {
+	background: linear-gradient(
+		to bottom,
+		var(--color-zinc-100, #f4f4f5) 0%,
+		var(--color-zinc-50, #fafafa) 100%
+	);
+}
+
+.gluon-dark .gluon-section-fade-top {
+	background: linear-gradient(
+		to bottom,
+		var(--color-zinc-800, #27272a) 0%,
+		var(--color-zinc-900, #18181b) 100%
+	);
+}
+
+.gluon-section-fade-bottom {
+	background: linear-gradient(
+		to top,
+		var(--color-zinc-100, #f4f4f5) 0%,
+		var(--color-zinc-50, #fafafa) 100%
+	);
+}
+
+.gluon-dark .gluon-section-fade-bottom {
+	background: linear-gradient(
+		to top,
+		var(--color-zinc-800, #27272a) 0%,
+		var(--color-zinc-900, #18181b) 100%
+	);
+}

@@ -107,11 +107,11 @@
 - [x] **Replace `outline-none`** — Using `outline-hidden` per v4 standards
 
 ### 3.3 CSS-Rendered Backgrounds
-- [ ] **Gradient patterns** — Subtle mesh gradients, radial glows
-- [ ] **Geometric patterns** — CSS-only dots, lines, grids
-- [ ] **Animated backgrounds** — Subtle motion with `@keyframes`
-- [ ] **Glassmorphism effects** — Blur, transparency for cards/modals
-- [ ] **Noise/grain textures** — SVG-based or CSS filters
+- [x] **Gradient patterns** — Mesh gradients, radial glows, diagonal gradients
+- [x] **Geometric patterns** — Dots, grid lines, diagonal lines, cross patterns
+- [x] **Animated backgrounds** — Floating gradient, pulse glow with reduced motion support
+- [x] **Glassmorphism effects** — Glass, glass-subtle, glass-heavy, glass-accent
+- [x] **Noise/grain textures** — SVG-based noise and film grain overlays
 
 ---
 

@@ -222,6 +222,14 @@ function gluon_scripts()
         GLUON_VERSION
     );
 
+    // Enqueue CSS backgrounds (gradients, patterns, glassmorphism)
+    wp_enqueue_style(
+        'gluon-backgrounds',
+        GLUON_URI . '/assets/css/backgrounds.css',
+        array('gluon-style'),
+        GLUON_VERSION
+    );
+
     // Enqueue theme toggle script
     wp_enqueue_script(
         'gluon-theme-toggle',
