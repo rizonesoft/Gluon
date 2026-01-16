@@ -119,9 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
             particles[i].draw();
         }
 
-        // Strategic Connection Lines (only between "close" particles)
-        const connectionDistance = 100;
-        const minDepth = 0.5; // Only connect particles with z > 0.5
+        // Strategic Connection Lines (between close particles)
+        const connectionDistance = 150; // Increased from 100
+        const minDepth = 0.3; // Lowered from 0.5 for more connections
 
         for (let i = 0; i < particles.length; i++) {
             if (particles[i].z < minDepth) continue; // Skip far particles
