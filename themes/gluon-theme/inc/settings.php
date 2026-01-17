@@ -33,18 +33,7 @@ add_action('admin_menu', 'gluon_register_settings_page');
  */
 function gluon_register_settings()
 {
-    // Logo settings
-    register_setting('gluon_settings_group', 'gluon_logo_light', array(
-        'type' => 'integer',
-        'sanitize_callback' => 'absint',
-        'default' => 0,
-    ));
-
-    register_setting('gluon_settings_group', 'gluon_logo_dark', array(
-        'type' => 'integer',
-        'sanitize_callback' => 'absint',
-        'default' => 0,
-    ));
+    // Note: Logo settings removed - now handled by the Gluon Site Logo block
 
     // Advanced settings
     register_setting('gluon_settings_group', 'gluon_enable_svg', array(
@@ -168,12 +157,7 @@ function gluon_settings_page_html()
         return;
     }
 
-    $logo_light_id = get_option('gluon_logo_light', 0);
-    $logo_dark_id = get_option('gluon_logo_dark', 0);
-    $logo_light_url = $logo_light_id ? wp_get_attachment_image_url($logo_light_id, 'medium') : '';
-    $logo_dark_url = $logo_dark_id ? wp_get_attachment_image_url($logo_dark_id, 'medium') : '';
     $svg_enabled = get_option('gluon_enable_svg', false);
-
     $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'general';
     ?>
         <div class="wrap gluon-settings-wrap">
@@ -198,61 +182,21 @@ function gluon_settings_page_html()
                 <?php if ($active_tab === 'general'): ?>
                         <!-- General Tab -->
                         <div class="gluon-settings-section">
-                            <h2><?php esc_html_e('Site Logos', 'gluon'); ?></h2>
+                            <h2><?php esc_html_e('Site Identity', 'gluon'); ?></h2>
                             <p class="description">
-                                <?php esc_html_e('Upload separate logos for light and dark modes. The appropriate logo will display based on the current theme mode.', 'gluon'); ?>
+                                <?php
+                                printf(
+                                    /* translators: %s: Link to Site Editor */
+                                    esc_html__('To customize your site logo (including dark mode support), use the %s and insert the Gluon Site Logo block in your header.', 'gluon'),
+                                    '<a href="' . esc_url(admin_url('site-editor.php')) . '">' . esc_html__('Site Editor', 'gluon') . '</a>'
+                                );
+                                ?>
                             </p>
-
-                            <table class="form-table" role="presentation">
-                                <tr>
-                                    <th scope="row">
-                                        <label for="gluon_logo_light"><?php esc_html_e('Light Mode Logo', 'gluon'); ?></label>
-                                    </th>
-                                    <td>
-                                        <div class="gluon-logo-upload" data-target="gluon_logo_light">
-                                            <input type="hidden" name="gluon_logo_light" id="gluon_logo_light"
-                                                value="<?php echo esc_attr($logo_light_id); ?>">
-                                            <div class="gluon-logo-preview" id="gluon_logo_light_preview">
-                                                <?php if ($logo_light_url): ?>
-                                                        <img src="<?php echo esc_url($logo_light_url); ?>" alt="">
-                                                <?php endif; ?>
-                                            </div>
-                                            <button type="button" class="button gluon-upload-button">
-                                                <?php esc_html_e('Select Logo', 'gluon'); ?>
-                                            </button>
-                                            <button type="button" class="button gluon-remove-button"
-                                                <?php echo $logo_light_id ? '' : 'style="display:none;"'; ?>>
-                                                <?php esc_html_e('Remove', 'gluon'); ?>
-                                            </button>
-                                        </div>
-                                        <p class="description"><?php esc_html_e('This logo displays on light backgrounds.', 'gluon'); ?></p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <label for="gluon_logo_dark"><?php esc_html_e('Dark Mode Logo', 'gluon'); ?></label>
-                                    </th>
-                                    <td>
-                                        <div class="gluon-logo-upload" data-target="gluon_logo_dark">
-                                            <input type="hidden" name="gluon_logo_dark" id="gluon_logo_dark"
-                                                value="<?php echo esc_attr($logo_dark_id); ?>">
-                                            <div class="gluon-logo-preview" id="gluon_logo_dark_preview">
-                                                <?php if ($logo_dark_url): ?>
-                                                        <img src="<?php echo esc_url($logo_dark_url); ?>" alt="">
-                                                <?php endif; ?>
-                                            </div>
-                                            <button type="button" class="button gluon-upload-button">
-                                                <?php esc_html_e('Select Logo', 'gluon'); ?>
-                                            </button>
-                                            <button type="button" class="button gluon-remove-button"
-                                                <?php echo $logo_dark_id ? '' : 'style="display:none;"'; ?>>
-                                                <?php esc_html_e('Remove', 'gluon'); ?>
-                                            </button>
-                                        </div>
-                                        <p class="description"><?php esc_html_e('This logo displays on dark backgrounds.', 'gluon'); ?></p>
-                                    </td>
-                                </tr>
-                            </table>
+                            <p style="margin-top: 20px;">
+                                <a href="<?php echo esc_url(admin_url('site-editor.php?postType=wp_template_part&postId=' . get_stylesheet() . '%2F%2Fheader')); ?>" class="button button-primary">
+                                    <?php esc_html_e('Edit Header', 'gluon'); ?>
+                                </a>
+                            </p>
                         </div>
 
                 <?php elseif ($active_tab === 'advanced'): ?>
@@ -289,58 +233,5 @@ function gluon_settings_page_html()
         <?php
 }
 
-/**
- * Get the appropriate logo URL based on theme mode
- *
- * @param string $mode 'light', 'dark', or 'auto'
- * @return string|array Logo URL, or array of URLs in auto mode
- */
-function gluon_get_logo_url($mode = 'auto')
-{
-    $logo_light_id = get_option('gluon_logo_light', 0);
-    $logo_dark_id = get_option('gluon_logo_dark', 0);
-
-    if ($mode === 'light' && $logo_light_id) {
-        return wp_get_attachment_image_url($logo_light_id, 'full');
-    }
-
-    if ($mode === 'dark' && $logo_dark_id) {
-        return wp_get_attachment_image_url($logo_dark_id, 'full');
-    }
-
-    // Auto mode - return both for CSS switching
-    return array(
-        'light' => $logo_light_id ? wp_get_attachment_image_url($logo_light_id, 'full') : '',
-        'dark' => $logo_dark_id ? wp_get_attachment_image_url($logo_dark_id, 'full') : '',
-    );
-}
-
-/**
- * Output the logo HTML with mode switching
- */
-function gluon_the_logo()
-{
-    $logos = gluon_get_logo_url('auto');
-    $site_name = get_bloginfo('name');
-
-    if (empty($logos['light']) && empty($logos['dark'])) {
-        // Fallback to site title
-        echo '<a href="' . esc_url(home_url('/')) . '" class="gluon-site-title">' . esc_html($site_name) . '</a>';
-        return;
-    }
-
-    echo '<a href="' . esc_url(home_url('/')) . '" class="gluon-logo-link" aria-label="' . esc_attr($site_name) . '">';
-
-    if ($logos['light']) {
-        echo '<img src="' . esc_url($logos['light']) . '" alt="' . esc_attr($site_name) . '" class="gluon-logo gluon-logo-light">';
-    }
-
-    if ($logos['dark']) {
-        echo '<img src="' . esc_url($logos['dark']) . '" alt="' . esc_attr($site_name) . '" class="gluon-logo gluon-logo-dark">';
-    }
-
-    echo '</a>';
-}
-
-// Note: The gluon/site-logo block handles dual logos natively.
+// Note: Logo display is now handled by the gluon/site-logo block.
 // See assets/blocks/site-logo/ for the block implementation.
