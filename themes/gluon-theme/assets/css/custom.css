@@ -140,3 +140,36 @@ h1, h2 {
 .gluon-dark .wp-block-site-title a:hover {
 	color: #088CDB;
 }
+
+/* ==========================================================================
+   Transparent Header (for hero overlay)
+   ========================================================================== */
+
+.gluon-header-transparent {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+	background: transparent !important;
+}
+
+.gluon-header-transparent .wp-block-navigation a,
+.gluon-header-transparent .gluon-site-title {
+	color: #fff;
+	text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.gluon-header-transparent .wp-block-navigation a:hover {
+	color: var(--wp--preset--color--gluon-secondary);
+}
+
+.gluon-header-transparent [data-gluon-theme-toggle] {
+	color: #fff;
+}
+
+/* Dark mode: transparent header adjustments */
+.gluon-dark .gluon-header-transparent .wp-block-navigation a,
+.gluon-dark .gluon-header-transparent .gluon-site-title {
+	color: #fff;
+}
