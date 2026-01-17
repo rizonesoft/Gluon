@@ -369,6 +369,11 @@
             "area": "header"
         },
         {
+            "name": "header-no-border",
+            "title": "Header (No Border)",
+            "area": "header"
+        },
+        {
             "name": "footer",
             "title": "Footer",
             "area": "footer"
