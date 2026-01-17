@@ -4,6 +4,7 @@
  * Slug: gluon/header-cta
  * Categories: header
  * Block Types: core/template-part/header
+ * Template Types: header
  * Description: Header with logo, navigation, and a call-to-action button.
  */
 ?>

@@ -4,6 +4,7 @@
  * Slug: gluon/header-minimal
  * Categories: header
  * Block Types: core/template-part/header
+ * Template Types: header
  * Description: Clean minimal header with logo left, navigation right, no border.
  */
 ?>

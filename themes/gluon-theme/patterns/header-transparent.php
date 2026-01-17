@@ -4,6 +4,7 @@
  * Slug: gluon/header-transparent
  * Categories: header
  * Block Types: core/template-part/header
+ * Template Types: header
  * Description: Transparent header for use over hero sections with absolute positioning.
  */
 ?>

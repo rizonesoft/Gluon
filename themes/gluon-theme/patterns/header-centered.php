@@ -4,6 +4,7 @@
  * Slug: gluon/header-centered
  * Categories: header
  * Block Types: core/template-part/header
+ * Template Types: header
  * Description: Logo centered above navigation with dark mode toggle.
  */
 ?>
