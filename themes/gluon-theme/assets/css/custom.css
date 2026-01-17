@@ -43,12 +43,31 @@ main {
 	display: block;
 }
 
-/* Site title fallback */
+/* Site title fallback - styled as wordmark when no logo uploaded */
 .gluon-site-title {
-	font-size: 1.25rem;
-	font-weight: 700;
+	display: inline-flex;
+	align-items: center;
+	font-family: var(--wp--preset--font-family--system);
+	font-size: 1.375rem;
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	line-height: 1;
 	text-decoration: none;
 	color: var(--wp--preset--color--gluon-text-primary);
+	transition: color 0.2s ease;
+}
+
+.gluon-site-title:hover {
+	color: var(--wp--preset--color--gluon-accent);
+}
+
+/* Dark mode site title */
+.gluon-dark .gluon-site-title {
+	color: var(--wp--preset--color--gluon-text-primary);
+}
+
+.gluon-dark .gluon-site-title:hover {
+	color: var(--wp--preset--color--gluon-secondary);
 }
 
 /* ==========================================================================
