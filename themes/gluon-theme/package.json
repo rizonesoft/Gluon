@@ -10,7 +10,7 @@
     },
     "scripts": {
         "build:css": "tailwindcss -i assets/css/input.css -o assets/css/theme.css --minify",
-        "build:blocks": "wp-scripts build assets/blocks/site-logo/index.jsx --output-path=assets/blocks-build/site-logo",
+        "build:blocks": "wp-scripts build",
         "build": "npm run build:css && npm run build:blocks && node scripts/build-style.js",
         "watch:css": "tailwindcss -i assets/css/input.css -o assets/css/theme.css --watch",
         "watch:blocks": "wp-scripts start --webpack-src-dir=assets/blocks --output-path=assets/blocks-build",

@@ -216,13 +216,13 @@ function gluon_register_blocks()
     $block_build_uri = GLUON_URI . '/assets/blocks-build';
 
     // Check if built assets exist
-    if (file_exists($block_build_dir . '/site-logo/index.jsx.js')) {
-        $asset_file = include $block_build_dir . '/site-logo/index.jsx.asset.php';
+    if (file_exists($block_build_dir . '/site-logo/index.js')) {
+        $asset_file = include $block_build_dir . '/site-logo/index.asset.php';
 
         // Register the editor script
         wp_register_script(
             'gluon-site-logo-editor',
-            $block_build_uri . '/site-logo/index.jsx.js',
+            $block_build_uri . '/site-logo/index.js',
             $asset_file['dependencies'],
             $asset_file['version'],
             true
@@ -231,7 +231,7 @@ function gluon_register_blocks()
         // Register the editor style
         wp_register_style(
             'gluon-site-logo-editor-style',
-            $block_build_uri . '/site-logo/index.jsx.css',
+            $block_build_uri . '/site-logo/index.css',
             array(),
             $asset_file['version']
         );
