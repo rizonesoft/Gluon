@@ -1,7 +1,7 @@
 <?php
 /**
- * Title: Header
- * Slug: gluon/header-default
+ * Title: Header - Default
+ * Slug: gluon/header-with-border
  * Categories: header
  * Block Types: core/template-part/header
  * Template Types: header
