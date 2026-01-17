@@ -6,6 +6,7 @@
  * Block Types: core/template-part/header
  * Template Types: header
  * Description: Clean minimal header with logo left, navigation right, no border.
+ * Viewport Width: 1200
  */
 ?>
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"backgroundColor":"gluon-surface-light","layout":{"type":"constrained"}} -->

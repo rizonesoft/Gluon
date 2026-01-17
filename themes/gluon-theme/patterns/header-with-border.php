@@ -6,6 +6,7 @@
  * Block Types: core/template-part/header
  * Template Types: header
  * Description: Default header with logo, navigation, dark mode toggle, and faint bottom border.
+ * Viewport Width: 1200
  */
 ?>
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}},"border":{"bottom":{"color":"var:preset|color|gluon-border","width":"1px"}}},"backgroundColor":"gluon-surface-light","layout":{"type":"constrained"}} -->
