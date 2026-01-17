@@ -341,3 +341,16 @@ function gluon_the_logo()
 
     echo '</a>';
 }
+
+/**
+ * Shortcode for logo output in FSE templates
+ *
+ * Usage: [gluon_logo]
+ */
+function gluon_logo_shortcode()
+{
+    ob_start();
+    gluon_the_logo();
+    return ob_get_clean();
+}
+add_shortcode('gluon_logo', 'gluon_logo_shortcode');
