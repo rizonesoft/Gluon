@@ -13,15 +13,11 @@
     style="padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30)">
     <!-- wp:group {"align":"wide","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
     <div class="wp-block-group alignwide">
+        <!-- wp:gluon/site-logo {"width":40} /-->
+
         <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
         <div class="wp-block-group">
-            <!-- wp:gluon/site-logo {"width":40} /-->
-        </div>
-        <!-- /wp:group -->
-
-        <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"right"}} -->
-        <div class="wp-block-group">
-            <!-- wp:navigation {"ref":"","overlayMenu":"mobile","icon":"menu","layout":{"type":"flex","justifyContent":"right"}} /-->
+            <!-- wp:navigation {"overlayMenu":"mobile","icon":"menu","layout":{"type":"flex","justifyContent":"right"}} /-->
 
             <!-- wp:html -->
             <button data-gluon-theme-toggle type="button" role="switch" aria-label="Switch to dark mode"
