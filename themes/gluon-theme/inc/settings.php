@@ -342,40 +342,5 @@ function gluon_the_logo()
     echo '</a>';
 }
 
-/**
- * Filter the site-logo block to use custom Gluon logos when set
- *
- * This filter replaces the default site-logo block output with our
- * dual-logo system when custom logos have been uploaded.
- *
- * @param string $block_content The block content.
- * @param array  $block         The full block, including name and attributes.
- * @return string Modified block content.
- */
-function gluon_filter_site_logo($block_content, $block)
-{
-    $logo_light_id = get_option('gluon_logo_light', 0);
-    $logo_dark_id = get_option('gluon_logo_dark', 0);
-    $has_custom_logos = $logo_light_id || $logo_dark_id;
-
-    // Replace site-logo block with our custom dual-logo output
-    if ($block['blockName'] === 'core/site-logo') {
-        if (!$has_custom_logos) {
-            return $block_content;
-        }
-
-        ob_start();
-        gluon_the_logo();
-        return ob_get_clean();
-    }
-
-    // Hide site-title when custom logos are set (logos include the link)
-    if ($block['blockName'] === 'core/site-title') {
-        if ($has_custom_logos) {
-            return ''; // Hide the site title
-        }
-    }
-
-    return $block_content;
-}
-add_filter('render_block', 'gluon_filter_site_logo', 10, 2);
+// Note: The gluon/site-logo block handles dual logos natively.
+// See assets/blocks/site-logo/ for the block implementation.

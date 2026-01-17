@@ -205,6 +205,19 @@ function gluon_register_pattern_categories()
 add_action('init', 'gluon_register_pattern_categories');
 
 /**
+ * Register custom blocks.
+ *
+ * @since 1.0.0
+ * @return void
+ */
+function gluon_register_blocks()
+{
+    // Register the Gluon Site Logo block
+    register_block_type(GLUON_DIR . '/assets/blocks/site-logo');
+}
+add_action('init', 'gluon_register_blocks');
+
+/**
  * Enqueue scripts and styles.
  *
  * @since 1.0.0

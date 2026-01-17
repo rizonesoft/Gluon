@@ -1,0 +1,59 @@
+/**
+ * Gluon Site Logo Block - Editor Styles
+ *
+ * @package Gluon_Theme
+ * @since 1.0.0
+ */
+
+.gluon-site-logo-block {
+    display: inline-flex;
+    align-items: center;
+}
+
+.gluon-logo-preview {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gluon-logo-preview img {
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* Show both logos in editor for preview */
+.gluon-logo-preview .gluon-logo-light,
+.gluon-logo-preview .gluon-logo-dark {
+    display: block;
+    opacity: 0.7;
+    border: 1px dashed #ddd;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.gluon-logo-preview .gluon-logo-light {
+    background: #fafafa;
+}
+
+.gluon-logo-preview .gluon-logo-dark {
+    background: #18181b;
+}
+
+/* Upload area styling */
+.gluon-logo-upload-area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gluon-logo-upload-area img {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    background: #f5f5f5;
+}
+
+/* Placeholder */
+.wp-block-gluon-site-logo .components-placeholder {
+    min-height: 60px;
+}

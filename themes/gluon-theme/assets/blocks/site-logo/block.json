@@ -1,0 +1,50 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "gluon/site-logo",
+    "version": "1.0.0",
+    "title": "Gluon Site Logo",
+    "category": "theme",
+    "icon": "format-image",
+    "description": "Display your site logo with automatic dark/light mode switching.",
+    "keywords": [
+        "logo",
+        "brand",
+        "site",
+        "dark mode"
+    ],
+    "textdomain": "gluon",
+    "attributes": {
+        "logoLightId": {
+            "type": "number",
+            "default": 0
+        },
+        "logoDarkId": {
+            "type": "number",
+            "default": 0
+        },
+        "width": {
+            "type": "number",
+            "default": 120
+        },
+        "linkToHome": {
+            "type": "boolean",
+            "default": true
+        }
+    },
+    "supports": {
+        "align": [
+            "left",
+            "center",
+            "right"
+        ],
+        "html": false,
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./editor.css",
+    "render": "file:./render.php"
+}
