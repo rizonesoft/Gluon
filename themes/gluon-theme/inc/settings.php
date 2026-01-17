@@ -343,14 +343,33 @@ function gluon_the_logo()
 }
 
 /**
- * Shortcode for logo output in FSE templates
+ * Filter the site-logo block to use custom Gluon logos when set
  *
- * Usage: [gluon_logo]
+ * This filter replaces the default site-logo block output with our
+ * dual-logo system when custom logos have been uploaded.
+ *
+ * @param string $block_content The block content.
+ * @param array  $block         The full block, including name and attributes.
+ * @return string Modified block content.
  */
-function gluon_logo_shortcode()
+function gluon_filter_site_logo($block_content, $block)
 {
+    // Only filter the site-logo block
+    if ($block['blockName'] !== 'core/site-logo') {
+        return $block_content;
+    }
+
+    $logo_light_id = get_option('gluon_logo_light', 0);
+    $logo_dark_id = get_option('gluon_logo_dark', 0);
+
+    // If no custom logos are set, return the default block content
+    if (!$logo_light_id && !$logo_dark_id) {
+        return $block_content;
+    }
+
+    // Build our custom logo output
     ob_start();
     gluon_the_logo();
     return ob_get_clean();
 }
-add_shortcode('gluon_logo', 'gluon_logo_shortcode');
+add_filter('render_block', 'gluon_filter_site_logo', 10, 2);
