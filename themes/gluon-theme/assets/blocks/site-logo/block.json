@@ -44,7 +44,7 @@
             "padding": true
         }
     },
-    "editorScript": "file:./index.js",
-    "editorStyle": "file:./editor.css",
+    "editorScript": "gluon-site-logo-editor",
+    "editorStyle": "gluon-site-logo-editor-style",
     "render": "file:./render.php"
 }

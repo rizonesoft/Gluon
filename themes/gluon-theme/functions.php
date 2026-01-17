@@ -212,6 +212,31 @@ add_action('init', 'gluon_register_pattern_categories');
  */
 function gluon_register_blocks()
 {
+    $block_build_dir = GLUON_DIR . '/assets/blocks-build';
+    $block_build_uri = GLUON_URI . '/assets/blocks-build';
+
+    // Check if built assets exist
+    if (file_exists($block_build_dir . '/site-logo/index.jsx.js')) {
+        $asset_file = include $block_build_dir . '/site-logo/index.jsx.asset.php';
+
+        // Register the editor script
+        wp_register_script(
+            'gluon-site-logo-editor',
+            $block_build_uri . '/site-logo/index.jsx.js',
+            $asset_file['dependencies'],
+            $asset_file['version'],
+            true
+        );
+
+        // Register the editor style
+        wp_register_style(
+            'gluon-site-logo-editor-style',
+            $block_build_uri . '/site-logo/index.jsx.css',
+            array(),
+            $asset_file['version']
+        );
+    }
+
     // Register the Gluon Site Logo block
     register_block_type(GLUON_DIR . '/assets/blocks/site-logo');
 }
