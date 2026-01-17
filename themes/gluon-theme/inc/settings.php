@@ -354,22 +354,28 @@ function gluon_the_logo()
  */
 function gluon_filter_site_logo($block_content, $block)
 {
-    // Only filter the site-logo block
-    if ($block['blockName'] !== 'core/site-logo') {
-        return $block_content;
-    }
-
     $logo_light_id = get_option('gluon_logo_light', 0);
     $logo_dark_id = get_option('gluon_logo_dark', 0);
+    $has_custom_logos = $logo_light_id || $logo_dark_id;
 
-    // If no custom logos are set, return the default block content
-    if (!$logo_light_id && !$logo_dark_id) {
-        return $block_content;
+    // Replace site-logo block with our custom dual-logo output
+    if ($block['blockName'] === 'core/site-logo') {
+        if (!$has_custom_logos) {
+            return $block_content;
+        }
+
+        ob_start();
+        gluon_the_logo();
+        return ob_get_clean();
     }
 
-    // Build our custom logo output
-    ob_start();
-    gluon_the_logo();
-    return ob_get_clean();
+    // Hide site-title when custom logos are set (logos include the link)
+    if ($block['blockName'] === 'core/site-title') {
+        if ($has_custom_logos) {
+            return ''; // Hide the site title
+        }
+    }
+
+    return $block_content;
 }
 add_filter('render_block', 'gluon_filter_site_logo', 10, 2);
