@@ -1,22 +1,17 @@
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}},"position":{"type":"sticky","top":"0px"}},"backgroundColor":"transparent","layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-transparent-background-color has-background"
-    style="padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30)">
+<!-- wp:group {"className":"gluon-header-transparent","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group gluon-header-transparent"
+    style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
     <!-- wp:group {"align":"wide","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
     <div class="wp-block-group alignwide">
+        <!-- wp:gluon/site-logo {"width":48} /-->
+
         <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
         <div class="wp-block-group">
-            <!-- wp:site-logo {"width":40} /-->
-            <!-- wp:site-title {"level":0,"style":{"elements":{"link":{"color":{"text":"var:preset|color|gluon-text-inverted"}}},"typography":{"textDecoration":"none"}},"textColor":"gluon-text-inverted"} /-->
-        </div>
-        <!-- /wp:group -->
-
-        <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"right"}} -->
-        <div class="wp-block-group">
-            <!-- wp:navigation {"textColor":"gluon-text-inverted","overlayMenu":"mobile","icon":"menu","layout":{"type":"flex","justifyContent":"right"},"style":{"elements":{"link":{"color":{"text":"var:preset|color|gluon-text-inverted"},":hover":{"color":{"text":"var:preset|color|gluon-accent"}}}}}} /-->
+            <!-- wp:navigation {"textColor":"gluon-text-inverted","overlayMenu":"mobile","icon":"menu","style":{"typography":{"fontWeight":"500"},"elements":{"link":{"color":{"text":"var:preset|color|gluon-text-inverted"},":hover":{"color":{"text":"var:preset|color|gluon-secondary"}}}}},"layout":{"type":"flex","justifyContent":"right"}} /-->
 
             <!-- wp:html -->
             <button data-gluon-theme-toggle type="button" role="switch" aria-label="Switch to dark mode"
-                aria-pressed="false" style="color: var(--wp--preset--color--gluon-text-inverted);">
+                aria-pressed="false" style="color: #fff;">
                 <svg data-icon="moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
