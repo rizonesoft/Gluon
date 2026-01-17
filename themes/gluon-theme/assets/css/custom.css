@@ -22,8 +22,9 @@ main {
 }
 
 .gluon-logo {
-	max-height: 40px;
+	height: 40px;
 	width: auto;
+	max-width: 200px;
 }
 
 /* Light mode: show light logo, hide dark logo */
