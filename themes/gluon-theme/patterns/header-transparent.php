@@ -5,16 +5,16 @@
  * Categories: header
  * Block Types: core/template-part/header
  * Template Types: header
- * Description: Transparent header with white text, designed to overlay hero sections.
+ * Description: Transparent header with white text, designed to overlay hero sections. Use with dark backgrounds.
  * Viewport Width: 1200
  */
 ?>
-<!-- wp:group {"className":"gluon-header-transparent","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"backgroundColor":"gluon-surface-dark","layout":{"type":"constrained"}} -->
+<!-- wp:group {"className":"gluon-header-transparent","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"backgroundColor":"gluon-surface-dark","layout":{"type":"constrained"}} -->
 <div class="wp-block-group gluon-header-transparent has-gluon-surface-dark-background-color has-background"
-    style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
+    style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
     <!-- wp:group {"align":"wide","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
     <div class="wp-block-group alignwide">
-        <!-- wp:gluon/site-logo {"width":48} /-->
+        <!-- wp:gluon/site-logo {"width":44} /-->
 
         <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
         <div class="wp-block-group">
